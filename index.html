@@ -17,8 +17,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <!-- Importmap pour Supabase -->
     <script type="importmap">
         {
             "imports": {
@@ -27,7 +27,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
     </script>
     <style>
-        /* ===== STYLES COMPLETS (GARDÉS À L'IDENTIQUE) ===== */
+        /* ===== VOTRE STYLE EXISTANT (gardé intégralement) ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; -webkit-text-size-adjust: 100%; }
         body {
@@ -53,8 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         body.dark-mode .faq-card,
         body.dark-mode .partner-card,
         body.dark-mode .stat-card,
-        body.dark-mode .new-widget,
-        body.dark-mode .admin-panel {
+        body.dark-mode .new-widget {
             background: #2d2d44;
             color: #e0e0e0;
             border-color: #444;
@@ -277,7 +276,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .modal-overlay.active { display: flex; }
         .modal-box {
-            background: white; width: 100%; max-width: 600px; border-radius: var(--radius-lg); padding: clamp(20px,4vw,32px);
+            background: white; width: 100%; max-width: 500px; border-radius: var(--radius-lg); padding: clamp(20px,4vw,32px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto;
         }
         .modal-box h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem,2.5vw,1.5rem); margin-bottom: 16px; }
@@ -695,14 +694,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             margin-top: 5px;
         }
         canvas { max-height: 180px; width: 100%; }
-        
-        /* ===== ADMIN PANEL AMÉLIORÉ ===== */
         .admin-panel {
             display: none;
             position: fixed;
             top: 80px;
             right: 20px;
-            width: 500px;
+            width: 380px;
             max-width: calc(100vw - 40px);
             background: white;
             border-radius: 24px;
@@ -711,32 +708,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border: 1px solid #e0e0e0;
             overflow: hidden;
         }
+        body.dark-mode .admin-panel { background: #2d2d44; border-color: #555; }
         .admin-panel.visible { display: block; }
         .admin-header { background: var(--primary); color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
         .admin-tabs { display: flex; background: #f5f5f5; border-bottom: 1px solid #ddd; }
+        body.dark-mode .admin-tabs { background: #3a3a55; }
         .admin-tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; font-size: 0.75rem; font-weight: 600; background: none; border: none; }
         .admin-tab.active { background: white; border-bottom: 2px solid var(--primary); color: var(--primary); }
         .admin-content { padding: 16px; max-height: 500px; overflow-y: auto; }
-        .admin-dashboard-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
-        .admin-stat-card { background: #f8f9fa; border-radius: 16px; padding: 12px; text-align: center; }
-        .admin-stat-number { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
-        .admin-stat-label { font-size: 0.7rem; color: #6c757d; }
-        .admin-item { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .admin-item { padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.8rem; }
         .admin-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; margin-left: 6px; background: #f39c12; color: white; }
-        .admin-badge.validated { background: #27ae60; }
-        .admin-badge.pending { background: #e67e22; }
-        .admin-btn { padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; border: none; }
-        .admin-btn-validate { background: #27ae60; color: white; }
-        .admin-btn-delete { background: #e74c3c; color: white; }
-        .id-badge {
-            font-family: monospace;
-            background: #f0f0f0;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            color: #666;
-        }
         
+        /* Styles spécifiques pour la modal partenaire améliorée */
         .partenaire-field { margin-bottom: 16px; }
         .partenaire-label { display: block; font-weight: 600; margin-bottom: 6px; color: var(--green-dark); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
         .price-row { display: flex; gap: 12px; }
@@ -805,19 +788,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <img id="lightboxImage" src="" alt="Image agrandie">
 </div>
 
-<!-- PANEL ADMIN AMÉLIORÉ -->
+<!-- PANEL ADMIN -->
 <div class="admin-panel" id="adminPanel">
-    <div class="admin-header">
-        <h4><i class="fas fa-shield-alt"></i> Administration HOLDEST</h4>
-        <button onclick="closeAdminPanel()">✕</button>
-    </div>
+    <div class="admin-header"><h4><i class="fas fa-shield-alt"></i> Administration</h4><button onclick="toggleAdminPanel()">✕</button></div>
     <div class="admin-tabs">
-        <button class="admin-tab active" data-admin-tab="dashboard">📊 Dashboard</button>
-        <button class="admin-tab" data-admin-tab="circuits">🗺️ Circuits & IDs</button>
-        <button class="admin-tab" data-admin-tab="devis">📋 Devis</button>
+        <button class="admin-tab active" data-admin-tab="devis">📋 Devis</button>
         <button class="admin-tab" data-admin-tab="partenaires">🤝 Partenaires</button>
-        <button class="admin-tab" data-admin-tab="utilisateurs">👥 Utilisateurs</button>
-        <button class="admin-tab" data-admin-tab="reservations">📅 Réservations</button>
+        <button class="admin-tab" data-admin-tab="avis">⭐ Avis</button>
     </div>
     <div class="admin-content" id="adminContent">Chargement...</div>
 </div>
@@ -903,7 +880,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p class="section-subtitle" data-lang-fr="Découvrez la vie nocturne de chaque destination (accès libre)" data-lang-en="Discover the nightlife of each destination (free access)" data-lang-it="Scopri la vita notturna di ogni destinazione (accesso libero)">Découvrez la vie nocturne de chaque destination (accès libre)</p>
     <div class="cards-grid" id="sortiesAccueilGrid"></div>
     
-    <!-- SECTION BALADES -->
+    <!-- SECTION BALADES AJOUTÉE -->
     <h2 class="section-title" style="margin-top:32px;">🥾 Balades & Randonnées</h2>
     <p class="section-subtitle">Trois expériences authentiques avec Randria</p>
     <div class="cards-grid" id="hikesGrid"></div>
@@ -977,7 +954,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </p>
     </div>
     <button class="reserve-btn" id="devisBtn" onclick="openDevisModal()">📋 <span data-lang-fr="Recevoir mon devis personnalisé" data-lang-en="Get My Personalized Quote" data-lang-it="Ricevi il Mio Preventivo Personalizzato">Recevoir mon devis personnalisé</span></button>
-    <button id="stripeCheckoutBtn" class="reserve-btn" style="background:#0a2540; margin-top:12px;">💳 Réserver maintenant – Paiement sécurisé</button>
     <p style="text-align:center; margin-top:12px; font-size:0.8rem; color:var(--text-soft);" id="reductionMsg"></p>
 </div>
 
@@ -1077,9 +1053,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 <!-- MODALES -->
-<div class="modal-overlay" id="devisModal"><div class="modal-box"><h3>📋 <span data-lang-fr="Demande de devis personnalisé" data-lang-en="Quote Request" data-lang-it="Richiesta Preventivo">Demande de devis personnalisé</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire et Randria vous répondra sous 24h." data-lang-en="Fill out this form and Randria will reply within 24h." data-lang-it="Compila questo modulo e Randria ti risponderà entro 24h.">Remplissez ce formulaire et Randria vous répondra sous 24h.</p><form id="devisForm"><input type="text" id="devisNom" placeholder="Nom complet *" required><input type="email" id="devisEmail" placeholder="Email *" required><input type="tel" id="devisTel" placeholder="Téléphone (optionnel)"><select id="devisDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="devisDuree" required><option value="">Durée du séjour *</option><option value="2">2 jours</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option><option value="30">1 mois</option></select><select id="devisFormule" required><option value="">Formule souhaitée *</option><option value="confort">⭐ Confort</option><option value="premium">🌟 Premium</option><option value="luxe">👑 Luxe</option><option value="roots">🌿 Roots (Budget Serré)</option></select><textarea id="devisMessage" placeholder="Message ou demande spéciale (optionnel)"></textarea><input type="hidden" name="_subject" value="Nouveau devis HOLDEST"><button type="submit" class="btn-full" style="background:var(--green); color:white;">📩 <span data-lang-fr="Envoyer ma demande" data-lang-en="Send my request" data-lang-it="Invia la mia richiesta">Envoyer ma demande</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('devisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
+<div class="modal-overlay" id="devisModal"><div class="modal-box"><h3>📋 <span data-lang-fr="Demande de devis personnalisé" data-lang-en="Quote Request" data-lang-it="Richiesta Preventivo">Demande de devis personnalisé</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire et Randria vous répondra sous 24h." data-lang-en="Fill out this form and Randria will reply within 24h." data-lang-it="Compila questo modulo e Randria ti risponderà entro 24h.">Remplissez ce formulaire et Randria vous répondra sous 24h.</p><form id="devisForm" action="https://formspree.io/f/votre-endpoint" method="POST"><input type="text" id="devisNom" placeholder="Nom complet *" required><input type="email" id="devisEmail" placeholder="Email *" required><input type="tel" id="devisTel" placeholder="Téléphone (optionnel)"><select id="devisDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="devisDuree" required><option value="">Durée du séjour *</option><option value="2">2 jours</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option><option value="30">1 mois</option></select><select id="devisFormule" required><option value="">Formule souhaitée *</option><option value="confort">⭐ Confort</option><option value="premium">🌟 Premium</option><option value="luxe">👑 Luxe</option><option value="roots">🌿 Roots (Budget Serré)</option></select><textarea id="devisMessage" placeholder="Message ou demande spéciale (optionnel)"></textarea><input type="hidden" name="_subject" value="Nouveau devis HOLDEST"><button type="submit" class="btn-full" style="background:var(--green); color:white;">📩 <span data-lang-fr="Envoyer ma demande" data-lang-en="Send my request" data-lang-it="Invia la mia richiesta">Envoyer ma demande</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('devisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
 
-<!-- MODALE PARTENAIRE AMÉLIORÉE AVEC NUMÉRO ORANGE MONEY -->
+<!-- MODALE PARTENAIRE AMÉLIORÉE (FONCTIONNALITÉ DU DEUXIÈME CODE) -->
 <div class="modal-overlay" id="partenaireModal">
     <div class="modal-box">
         <h3><i class="fas fa-handshake"></i> Devenir partenaire HOLDEST</h3>
@@ -1096,10 +1072,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="partenaire-field">
                 <label class="partenaire-label"><i class="fas fa-phone-alt"></i> Téléphone *</label>
                 <input type="tel" id="partnerPhone" placeholder="+261 32 12 345 67" required>
-            </div>
-            <div class="partenaire-field">
-                <label class="partenaire-label"><i class="fas fa-mobile-alt"></i> Orange Money / MVola *</label>
-                <input type="tel" id="partnerMobileMoney" placeholder="034 12 345 67 ou 032 12 345 67" required>
             </div>
             <div class="partenaire-field">
                 <label class="partenaire-label"><i class="fas fa-map-marker-alt"></i> Ville / Région *</label>
@@ -1132,6 +1104,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <input type="number" id="partnerPriceAr" step="5000" value="175000" placeholder="Ex: 175 000">
                 </div>
             </div>
+            <div class="price-row">
+                <div class="partenaire-field">
+                    <label class="partenaire-label"><i class="fas fa-calendar-week"></i> Prix / semaine (€)</label>
+                    <input type="number" id="partnerWeekEur" step="10" placeholder="Optionnel">
+                </div>
+                <div class="partenaire-field">
+                    <label class="partenaire-label"><i class="fas fa-calendar-week"></i> Prix / semaine (Ar)</label>
+                    <input type="number" id="partnerWeekAr" step="10000" placeholder="Optionnel">
+                </div>
+            </div>
             <div class="partenaire-field">
                 <label class="partenaire-label"><i class="fas fa-camera"></i> Photos de votre service</label>
                 <div class="upload-area" id="partnerUploadTrigger">
@@ -1153,11 +1135,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="recap-grid-partenaire">
                     <div class="recap-item-partenaire"><span class="recap-label">Nom</span><span class="recap-value" id="recapPartnerName">—</span></div>
                     <div class="recap-item-partenaire"><span class="recap-label">Contact</span><span class="recap-value" id="recapPartnerContact">—</span></div>
-                    <div class="recap-item-partenaire"><span class="recap-label">Orange Money</span><span class="recap-value" id="recapPartnerMobileMoney">—</span></div>
                     <div class="recap-item-partenaire"><span class="recap-label">Ville</span><span class="recap-value" id="recapPartnerCity">—</span></div>
                     <div class="recap-item-partenaire"><span class="recap-label">Service</span><span class="recap-value" id="recapPartnerService">—</span></div>
                     <div class="recap-item-partenaire full-width-recap"><span class="recap-label">Détail</span><span class="recap-value" id="recapPartnerDesc">—</span></div>
                     <div class="recap-item-partenaire"><span class="recap-label">💰 Prix jour</span><span class="recap-value" id="recapPartnerPriceDay">—</span></div>
+                    <div class="recap-item-partenaire"><span class="recap-label">📅 Prix semaine</span><span class="recap-value" id="recapPartnerPriceWeek">—</span></div>
+                    <div class="recap-item-partenaire"><span class="recap-label">🖼️ Photo</span><span class="recap-value" id="recapPartnerPhotoStatus">❌ Aucune</span></div>
                     <div class="recap-item-partenaire full-width-recap"><span class="recap-label">📋 Justificatifs</span><span class="recap-value" id="recapPartnerJustify">—</span></div>
                 </div>
             </div>
@@ -1172,7 +1155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </div>
 
-<div class="modal-overlay" id="rootsDevisModal"><div class="modal-box"><h3>🌿 <span data-lang-fr="Demande de devis - Budget Serré" data-lang-en="Quote Request - Low Budget" data-lang-it="Richiesta Preventivo - Budget Serré">Demande de devis - Budget Serré</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire pour un voyage roots authentique avec Randria." data-lang-en="Fill out this form for an authentic roots trip with Randria." data-lang-it="Compila questo modulo per un viaggio roots autentico con Randria.">Remplissez ce formulaire pour un voyage roots authentique avec Randria.</p><form id="rootsDevisForm"><input type="text" id="rootsNom" placeholder="Nom complet *" required><input type="email" id="rootsEmail" placeholder="Email *" required><input type="tel" id="rootsTel" placeholder="Téléphone (optionnel)"><select id="rootsDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="rootsDuree" required><option value="">Durée du séjour *</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option></select><select id="rootsType" required><option value="">Type de logement souhaité *</option><option value="chez_habitant">🏠 Chez l'habitant</option><option value="auberge">🛏️ Auberge collective</option><option value="mixte">🔄 Mixte (selon disponibilité)</option></select><textarea id="rootsMessage" placeholder="Vos attentes, questions, ou demande spéciale..."></textarea><input type="hidden" name="_subject" value="Devis Roots HOLDEST"><button type="submit" class="btn-full" style="background:var(--green); color:white;">🌿 <span data-lang-fr="Demander mon devis Roots" data-lang-en="Request my Roots Quote" data-lang-it="Richiedi il mio Preventivo Roots">Demander mon devis Roots</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('rootsDevisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
+<div class="modal-overlay" id="rootsDevisModal"><div class="modal-box"><h3>🌿 <span data-lang-fr="Demande de devis - Budget Serré" data-lang-en="Quote Request - Low Budget" data-lang-it="Richiesta Preventivo - Budget Serré">Demande de devis - Budget Serré</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire pour un voyage roots authentique avec Randria." data-lang-en="Fill out this form for an authentic roots trip with Randria." data-lang-it="Compila questo modulo per un viaggio roots autentico con Randria.">Remplissez ce formulaire pour un voyage roots authentique avec Randria.</p><form id="rootsDevisForm" action="https://formspree.io/f/votre-endpoint" method="POST"><input type="text" id="rootsNom" placeholder="Nom complet *" required><input type="email" id="rootsEmail" placeholder="Email *" required><input type="tel" id="rootsTel" placeholder="Téléphone (optionnel)"><select id="rootsDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="rootsDuree" required><option value="">Durée du séjour *</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option></select><select id="rootsType" required><option value="">Type de logement souhaité *</option><option value="chez_habitant">🏠 Chez l'habitant</option><option value="auberge">🛏️ Auberge collective</option><option value="mixte">🔄 Mixte (selon disponibilité)</option></select><textarea id="rootsMessage" placeholder="Vos attentes, questions, ou demande spéciale..."></textarea><input type="hidden" name="_subject" value="Devis Roots HOLDEST"><button type="submit" class="btn-full" style="background:var(--green); color:white;">🌿 <span data-lang-fr="Demander mon devis Roots" data-lang-en="Request my Roots Quote" data-lang-it="Richiedi il mio Preventivo Roots">Demander mon devis Roots</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('rootsDevisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
 <div class="modal-overlay" id="registerModal"><div class="modal-box"><h3>📝 <span data-lang-fr="Créer un compte HOLDEST" data-lang-en="Create a HOLDEST Account" data-lang-it="Crea un Account HOLDEST">Créer un compte HOLDEST</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Inscrivez-vous pour obtenir <strong>5% de réduction</strong>." data-lang-en="Sign up to get <strong>5% discount</strong>." data-lang-it="Registrati per ottenere <strong>5% di sconto</strong>.">Inscrivez-vous pour obtenir <strong>5% de réduction</strong>.</p><input type="text" placeholder="Nom complet" id="regName"><input type="email" placeholder="Email" id="regEmail"><input type="tel" placeholder="Téléphone" id="regPhone"><select id="regOrigin"><option value="">🌍 <span data-lang-fr="D'où venez-vous ?" data-lang-en="Where are you from?" data-lang-it="Da dove vieni?">D'où venez-vous ?</span></option><option value="france">France (Métropole)</option><option value="europe">Europe (hors France)</option><option value="afrique">Afrique</option><option value="autre">Autre</option></select><select id="registerCity"><option value="">📍 <span data-lang-fr="Où voulez-vous aller ?" data-lang-en="Where do you want to go?" data-lang-it="Dove vuoi andare?">Où voulez-vous aller ?</span></option><option value="tana">Antananarivo (Tana)</option><option value="majunga">Majunga</option><option value="nosybe">Nosy Be</option><option value="diego">Diego Suarez</option><option value="tamatave">Tamatave (Toamasina)</option></select><select id="registerFormula"><option value="">⭐ <span data-lang-fr="Choisissez votre formule" data-lang-en="Choose your formula" data-lang-it="Scegli la tua formula">Choisissez votre formule</span></option><option value="confort">Confort</option><option value="premium">Premium</option><option value="luxe">Luxe</option></select><select id="registerDays"><option value="">📅 <span data-lang-fr="Durée du séjour" data-lang-en="Duration of stay" data-lang-it="Durata del soggiorno">Durée du séjour</span></option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option><option value="30">1 mois</option></select><input type="password" placeholder="Mot de passe" id="regPassword"><button class="btn-full" style="background:var(--green); color:white;" onclick="registerSupabase()"><span data-lang-fr="S'inscrire" data-lang-en="Sign up" data-lang-it="Registrati">S'inscrire</span></button><button class="btn-full" style="background:#ddd;" onclick="closeModal('registerModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></div></div>
 <div class="modal-overlay" id="loginModal"><div class="modal-box"><h3>🔐 <span data-lang-fr="Se connecter à HOLDEST" data-lang-en="Log in to HOLDEST" data-lang-it="Accedi a HOLDEST">Se connecter à HOLDEST</span></h3><input type="email" placeholder="Email" id="loginEmail"><input type="password" placeholder="Mot de passe" id="loginPassword"><button class="btn-full" style="background:var(--green); color:white;" onclick="loginSupabase()"><span data-lang-fr="Se connecter" data-lang-en="Log in" data-lang-it="Accedi">Se connecter</span></button><button class="btn-full" style="background:#ddd;" onclick="closeModal('loginModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></div></div>
 <div class="modal-overlay" id="profileModal"><div class="modal-box"><h3><i class="fas fa-user-circle"></i> <span data-lang-fr="Mon profil HOLDEST" data-lang-en="My HOLDEST Profile" data-lang-it="Il Mio Profilo HOLDEST">Mon profil HOLDEST</span></h3><div id="profileContent"></div><button class="btn-full" style="background:#ddd; margin-top:16px;" onclick="closeModal('profileModal')"><span data-lang-fr="Fermer" data-lang-en="Close" data-lang-it="Chiudi">Fermer</span></button></div></div>
@@ -1190,7 +1173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button class="tab-item" data-screen="explore"><i class="fas fa-map"></i><span data-lang-fr="Explorer" data-lang-en="Explore" data-lang-it="Esplora">Explorer</span></button>
 </div>
 
-<a href="https://wa.me/261349180297" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Randria</a>
+<a href="https://wa.me/261321122334" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Randria</a>
 
 <!-- INTERFACE BUDGET SERRÉ -->
 <div class="roots-interface" id="rootsInterface">
@@ -1202,17 +1185,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="roots-section"><div class="roots-image" style="background-image:url('https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/4940ee7b-13b2-8b18-a12a-ef0a539ef21a.jpg');" onclick="openLightbox('https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/4940ee7b-13b2-8b18-a12a-ef0a539ef21a.jpg')"></div><h3>🗣️ <span data-lang-fr="Catégorie : Apprends le malgache" data-lang-en="Category: Learn Malagasy" data-lang-it="Categoria: Impara il Malgascio">Catégorie : Apprends le malgache</span></h3><div class="roots-grid"><div class="roots-grid-item">👋 Salama<br><small>Bonjour / Hello / Ciao</small></div><div class="roots-grid-item">🙏 Misaotra<br><small>Merci / Thank you / Grazie</small></div><div class="roots-grid-item">💰 Hoatrinona?<br><small>Combien? / How much? / Quanto?</small></div><div class="roots-grid-item">😋 Tsara be!<br><small>Très bon! / Very good! / Molto buono!</small></div><div class="roots-grid-item">🤝 Azafady<br><small>Pardon/SVP / Sorry/Please / Scusa/Per favore</small></div><div class="roots-grid-item">👋 Veloma<br><small>Au revoir / Goodbye / Arrivederci</small></div></div></div>
         <div class="roots-section" id="rootsBudgetSection"><h3>💰 <span data-lang-fr="Budget estimé (1 semaine Roots)" data-lang-en="Estimated Budget (1 week Roots)" data-lang-it="Budget Stimato (1 settimana Roots)">Budget estimé (1 semaine Roots)</span></h3><div id="rootsBudgetDetails"><ul><li><span data-lang-fr="Guide Randria" data-lang-en="Guide Randria" data-lang-it="Guida Randria">Guide Randria</span> <span class="roots-price-tag" id="rootsGuidePrice">28€ x 7 = 196€</span></li><li><span data-lang-fr="Transport local" data-lang-en="Local Transport" data-lang-it="Trasporto Locale">Transport local</span> <span class="roots-price-tag" id="rootsTransportPrice">10€ x 7 = 70€</span></li><li><span data-lang-fr="Hébergement" data-lang-en="Accommodation" data-lang-it="Alloggio">Hébergement</span> <span class="roots-price-tag" id="rootsHebergementPrice">15€ x 7 = 105€</span></li><li><span data-lang-fr="Repas" data-lang-en="Meals" data-lang-it="Pasti">Repas</span> <span class="roots-price-tag" id="rootsRepasPrice">8€ x 7 = 56€</span></li><li><span data-lang-fr="Activités" data-lang-en="Activities" data-lang-it="Attività">Activités</span> <span class="roots-price-tag" id="rootsActivitesPrice">10€ x 7 = 70€</span></li></ul><p style="font-weight:700; text-align:center; margin-top:12px; font-size:1.1rem;">💰 TOTAL : <span id="rootsTotalEuro">497€</span> (<span id="rootsArTotal">2 485 000</span> Ar)</p><p style="font-size:0.8rem; text-align:center; margin-top:8px;">🔒 <span data-lang-fr="Acompte : Frais de dossier" data-lang-en="Deposit: Dossier fee" data-lang-it="Acconto: Tassa pratica">Acompte : Frais de dossier</span> <strong>30€</strong> + <span data-lang-fr="Réservation" data-lang-en="Reservation" data-lang-it="Prenotazione">Réservation</span> <strong id="rootsAcompteReservation">124€</strong> = <strong id="rootsAcompteTotal">154€</strong></p><p style="font-size:0.8rem; text-align:center;">💵 <span data-lang-fr="Solde sur place" data-lang-en="Balance on site" data-lang-it="Saldo sul posto">Solde sur place</span> : <strong id="rootsSolde">343€</strong></p></div></div>
         <button class="roots-btn" style="background:#25D366; color:white; margin-top:20px;" onclick="openRootsDevisModal()"><i class="fab fa-whatsapp"></i> <span data-lang-fr="Demander un devis Roots" data-lang-en="Request a Roots Quote" data-lang-it="Richiedi un Preventivo Roots">Demander un devis Roots</span></button>
-        <button class="roots-btn" style="background:#ff8c42; color:#1a1a1a; margin-top:10px;" onclick="window.open('https://wa.me/261349180297?text=Salut%20Randria,%20je%20veux%20le%20budget%20serr%C3%A9%20!','_blank')"><i class="fab fa-whatsapp"></i> <span data-lang-fr="Contacter Randria directement" data-lang-en="Contact Randria Directly" data-lang-it="Contatta Randria Direttamente">Contacter Randria directement</span></button>
+        <button class="roots-btn" style="background:#ff8c42; color:#1a1a1a; margin-top:10px;" onclick="window.open('https://wa.me/261321122334?text=Salut%20Randria,%20je%20veux%20le%20budget%20serr%C3%A9%20!','_blank')"><i class="fab fa-whatsapp"></i> <span data-lang-fr="Contacter Randria directement" data-lang-en="Contact Randria Directly" data-lang-it="Contatta Randria Direttamente">Contacter Randria directement</span></button>
     </div>
 </div>
 
 <script type="module">
     import { createClient } from "@supabase/supabase-js";
 
-    // ==================== CONFIGURATION SUPABASE ====================
+    // ==================== SUPABASE CONFIG ====================
     const SUPABASE_URL = "https://umttqexqjoewodflsdri.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtdHRxZXhxam9ld29kZmxzZHJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5ODc5MjIsImV4cCI6MjA5NTU2MzkyMn0._NA3jblv9aZlOIx9ePRNwSLNYPp8-LR5DWXw9nD1ywM";
-
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // ==================== ÉTAT GLOBAL ====================
@@ -1229,26 +1211,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     let affluenceChart = null;
     let miniMap = null;
     let userPreferences = { city: "tana", formula: "confort", days: 7, origin: "", name: "" };
-    let currentPartnerImageFile = null;
     
-    // Stripe
-    const stripe = Stripe('pk_live_51RANDRIATESTVOTRECLE'); // <--- REMPLACEZ PAR VOTRE CLÉ PUBLIQUE STRIPE
+    // Variables pour le formulaire partenaire amélioré
+    let currentPartnerImageBase64 = null;
 
-    // ==================== DONNÉES STATIQUES (inchangées) ====================
-    const circuitsData = [
-        { id_circuit: "CIRC-TANA-001", name: "Antananarivo (Tana)", key: "tana", price: 102 },
-        { id_circuit: "CIRC-NOSY-002", name: "Nosy Be", key: "nosybe", price: 125 },
-        { id_circuit: "CIRC-MAJ-003", name: "Majunga", key: "majunga", price: 98 },
-        { id_circuit: "CIRC-DIEGO-004", name: "Diego Suarez", key: "diego", price: 110 },
-        { id_circuit: "CIRC-TAMA-005", name: "Tamatave", key: "tamatave", price: 85 }
-    ];
-    
-    const formulesData = [
-        { id_formule: "FORM-CONF-001", nom: "confort", name: "Confort", price: 102 },
-        { id_formule: "FORM-PREM-002", nom: "premium", name: "Premium", price: 155 },
-        { id_formule: "FORM-LUXE-003", nom: "luxe", name: "Luxe", price: 233 }
-    ];
-    
+    // ==================== DONNÉES STATIQUES COMPLÈTES ====================
     const programmesData = {
         tana: [{ jour: 1, fr: "Arrivée à l'aéroport d'Ivato, accueil par Randria. Transfert à l'hôtel et premier contact avec Tana. Dîner dans un restaurant typique malgache.", en: "Arrival at Ivato Airport, welcome by Randria. Transfer to hotel and first contact with Tana. Dinner in a typical Malagasy restaurant.", it: "Arrivo all'aeroporto di Ivato, accoglienza da Randria. Trasferimento in hotel e primo contatto con Tana. Cena in un ristorante tipico malgascio." }, { jour: 2, fr: "Visite de la Haute Ville : Palais de la Reine (Rova), vue panoramique sur la ville. Après-midi au marché d'Analakely pour l'artisanat.", en: "Visit of the Upper Town: Queen's Palace (Rova), panoramic view of the city. Afternoon at Analakely market for crafts.", it: "Visita della Città Alta: Palazzo della Regina (Rova), vista panoramica sulla città. Pomeriggio al mercato di Analakely per l'artigianato." }, { jour: 3, fr: "Excursion à la Croc Farm (crocodiles, lémuriens) et découverte de l'artisanat local. Déjeuner au bord du lac.", en: "Excursion to Croc Farm (crocodiles, lemurs) and discovery of local crafts. Lunch by the lake.", it: "Escursione alla Croc Farm (coccodrilli, lemuri) e scoperta dell'artigianato locale. Pranzo in riva al lago." }, { jour: 4, fr: "Journée détente ou option : visite du lac Anosy et du quartier branché d'Isoraka. Soirée au restaurant La Varangue.", en: "Relaxation day or option: visit of Lake Anosy and the trendy Isoraka district. Evening at La Varangue restaurant.", it: "Giornata relax o opzione: visita del lago Anosy e del quartiere trendy di Isoraka. Serata al ristorante La Varangue." }, { jour: 5, fr: "Départ vers la campagne : visite du village d'Ambohimanga, site classé UNESCO. Retour à Tana en fin de journée.", en: "Departure to the countryside: visit of Ambohimanga village, UNESCO site. Return to Tana at the end of the day.", it: "Partenza verso la campagna: visita del villaggio di Ambohimanga, sito UNESCO. Ritorno a Tana a fine giornata." }],
         nosybe: [{ jour: 1, fr: "Arrivée à l'aéroport de Fascene, transfert à l'hôtel. Dîner sur la plage de Madirokely, cocktail au coucher du soleil.", en: "Arrival at Fascene Airport, transfer to hotel. Dinner on Madirokely beach, sunset cocktail.", it: "Arrivo all'aeroporto di Fascene, trasferimento in hotel. Cena sulla spiaggia di Madirokely, cocktail al tramonto." }, { jour: 2, fr: "Excursion en bateau vers l'île de Nosy Komba : lémuriens en liberté, artisanat local. Snorkeling dans la baie.", en: "Boat excursion to Nosy Komba Island: free lemurs, local crafts. Snorkeling in the bay.", it: "Escursione in barca verso l'isola di Nosy Komba: lemuri in libertà, artigianato locale. Snorkeling nella baia." }, { jour: 3, fr: "Plongée ou snorkeling dans la réserve marine de Nosy Tanikely. Déjeuner pique-nique sur l'île.", en: "Diving or snorkeling in Nosy Tanikely marine reserve. Picnic lunch on the island.", it: "Immersione o snorkeling nella riserva marina di Nosy Tanikely. Pranzo picnic sull'isola." }, { jour: 4, fr: "Découverte de Lokobe, forêt tropicale et lémuriens noirs. Après-midi plage à Andilana.", en: "Discovery of Lokobe, tropical forest and black lemurs. Afternoon at Andilana beach.", it: "Scoperta di Lokobe, foresta tropicale e lemuri neri. Pomeriggio in spiaggia ad Andilana." }, { jour: 5, fr: "Journée libre : farniente, massage sur la plage, ou excursion optionnelle à l'île aux parfums.", en: "Free day: relaxation, beach massage, or optional excursion to the perfume island.", it: "Giornata libera: relax, massaggio in spiaggia, o escursione opzionale all'isola dei profumi." }],
@@ -1279,33 +1246,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ];
     
     const destinationsData = [
-        { id_circuit: "CIRC-TANA-001", name: "Antananarivo (Tana)", desc: { fr: "Capitale animée, marchés colorés, artisanat, palais de la Reine.", en: "Lively capital, colorful markets, crafts, Queen's Palace.", it: "Capitale animata, mercati colorati, artigianato, palazzo della Regina." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/2d033167-7190-e647-ae4c-ceca51b64248.jpg", badge: "Capitale", meteo: { fr: "🌦️ Année", en: "🌦️ Year", it: "🌦️ Anno" }, duree: { fr: "2-4 jours", en: "2-4 days", it: "2-4 giorni" }, activites: { fr: "🏛️ Rova, Croc Farm, marché Digue", en: "🏛️ Rova, Croc Farm, Digue market", it: "🏛️ Rova, Croc Farm, mercato Digue" }, key: "tana" },
-        { id_circuit: "CIRC-NOSY-002", name: "Nosy Be", desc: { fr: "Plages paradisiaques, snorkeling, lémuriens, épices.", en: "Paradise beaches, snorkeling, lemurs, spices.", it: "Spiagge paradisiache, snorkeling, lemuri, spezie." }, image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600", badge: "Paradis", meteo: { fr: "☀️ Mai-Déc", en: "☀️ May-Dec", it: "☀️ Mag-Dic" }, duree: { fr: "4-7 jours", en: "4-7 days", it: "4-7 giorni" }, activites: { fr: "🏝️ Plongée, Nosy Komba", en: "🏝️ Diving, Nosy Komba", it: "🏝️ Immersioni, Nosy Komba" }, key: "nosybe" },
-        { id_circuit: "CIRC-MAJ-003", name: "Majunga", desc: { fr: "Baobab amoureux, plages sauvages, rocher noir.", en: "Lovers' Baobabs, wild beaches, black rock.", it: "Baobab innamorati, spiagge selvagge, roccia nera." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/bb0afd1f-83f7-e8a9-66ac-8785897379d2.jpg", badge: "Coup de cœur", meteo: { fr: "☀️ Avril-Nov", en: "☀️ Apr-Nov", it: "☀️ Apr-Nov" }, duree: { fr: "3-5 jours", en: "3-5 days", it: "3-5 giorni" }, activites: { fr: "💑 Baobabs, marché Kijana", en: "💑 Baobabs, Kijana market", it: "💑 Baobab, mercato Kijana" }, key: "majunga" },
-        { id_circuit: "CIRC-DIEGO-004", name: "Diego Suarez", desc: { fr: "Baie des Dunes, mer émeraude, randonnées.", en: "Dunes Bay, emerald sea, hikes.", it: "Baia delle Dune, mare smeraldo, trekking." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/411e8063-e643-9350-b5cf-231145f5f992.jpg", badge: "Grand Nord", meteo: { fr: "☀️ Mai-Nov", en: "☀️ May-Nov", it: "☀️ Mag-Nov" }, duree: { fr: "3-5 jours", en: "3-5 days", it: "3-5 giorni" }, activites: { fr: "🏖️ Mer Émeraude", en: "🏖️ Emerald Sea", it: "🏖️ Mare Smeraldo" }, key: "diego" },
-        { id_circuit: "CIRC-TAMA-005", name: "Tamatave (Toamasina)", desc: { fr: "Port historique, canaux, plages.", en: "Historic port, canals, beaches.", it: "Porto storico, canali, spiagge." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/198b7106-ac1d-5ffe-9602-a0a47cae4950.jpg", badge: "Authentique", meteo: { fr: "🌦️ Année", en: "🌦️ Year", it: "🌦️ Anno" }, duree: { fr: "2-3 jours", en: "2-3 days", it: "2-3 giorni" }, activites: { fr: "🛶 Canal, Foulpointe", en: "🛶 Canal, Foulpointe", it: "🛶 Canale, Foulpointe" }, key: "tamatave" }
+        { name: "Antananarivo (Tana)", desc: { fr: "Capitale animée, marchés colorés, artisanat, palais de la Reine.", en: "Lively capital, colorful markets, crafts, Queen's Palace.", it: "Capitale animata, mercati colorati, artigianato, palazzo della Regina." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/2d033167-7190-e647-ae4c-ceca51b64248.jpg", badge: "Capitale", meteo: { fr: "🌦️ Année", en: "🌦️ Year", it: "🌦️ Anno" }, duree: { fr: "2-4 jours", en: "2-4 days", it: "2-4 giorni" }, activites: { fr: "🏛️ Rova, Croc Farm, marché Digue", en: "🏛️ Rova, Croc Farm, Digue market", it: "🏛️ Rova, Croc Farm, mercato Digue" }, key: "tana" },
+        { name: "Nosy Be", desc: { fr: "Plages paradisiaques, snorkeling, lémuriens, épices.", en: "Paradise beaches, snorkeling, lemurs, spices.", it: "Spiagge paradisiache, snorkeling, lemuri, spezie." }, image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600", badge: "Paradis", meteo: { fr: "☀️ Mai-Déc", en: "☀️ May-Dec", it: "☀️ Mag-Dic" }, duree: { fr: "4-7 jours", en: "4-7 days", it: "4-7 giorni" }, activites: { fr: "🏝️ Plongée, Nosy Komba", en: "🏝️ Diving, Nosy Komba", it: "🏝️ Immersioni, Nosy Komba" }, key: "nosybe" },
+        { name: "Majunga", desc: { fr: "Baobab amoureux, plages sauvages, rocher noir.", en: "Lovers' Baobabs, wild beaches, black rock.", it: "Baobab innamorati, spiagge selvagge, roccia nera." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/bb0afd1f-83f7-e8a9-66ac-8785897379d2.jpg", badge: "Coup de cœur", meteo: { fr: "☀️ Avril-Nov", en: "☀️ Apr-Nov", it: "☀️ Apr-Nov" }, duree: { fr: "3-5 jours", en: "3-5 days", it: "3-5 giorni" }, activites: { fr: "💑 Baobabs, marché Kijana", en: "💑 Baobabs, Kijana market", it: "💑 Baobab, mercato Kijana" }, key: "majunga" },
+        { name: "Diego Suarez", desc: { fr: "Baie des Dunes, mer émeraude, randonnées.", en: "Dunes Bay, emerald sea, hikes.", it: "Baia delle Dune, mare smeraldo, trekking." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/411e8063-e643-9350-b5cf-231145f5f992.jpg", badge: "Grand Nord", meteo: { fr: "☀️ Mai-Nov", en: "☀️ May-Nov", it: "☀️ Mag-Nov" }, duree: { fr: "3-5 jours", en: "3-5 days", it: "3-5 giorni" }, activites: { fr: "🏖️ Mer Émeraude", en: "🏖️ Emerald Sea", it: "🏖️ Mare Smeraldo" }, key: "diego" },
+        { name: "Tamatave (Toamasina)", desc: { fr: "Port historique, canaux, plages.", en: "Historic port, canals, beaches.", it: "Porto storico, canali, spiagge." }, image: "https://mcusercontent.com/40a9f1a77d46874eba2309d88/images/198b7106-ac1d-5ffe-9602-a0a47cae4950.jpg", badge: "Authentique", meteo: { fr: "🌦️ Année", en: "🌦️ Year", it: "🌦️ Anno" }, duree: { fr: "2-3 jours", en: "2-3 days", it: "2-3 giorni" }, activites: { fr: "🛶 Canal, Foulpointe", en: "🛶 Canal, Foulpointe", it: "🛶 Canale, Foulpointe" }, key: "tamatave" }
     ];
     const formulesDetailData = {
-        confort: { id_formule: "FORM-CONF-001", titre: { fr: "⭐ Formule Confort", en: "⭐ Comfort Formula", it: "⭐ Formula Confort" }, slogan: { fr: "Le meilleur rapport qualité-prix pour découvrir Madagascar", en: "The best value for money to discover Madagascar", it: "Il miglior rapporto qualità-prezzo per scoprire Madagascar" }, description: { fr: "Voyagez confortablement avec un guide privé, un 4x4 climatisé et des hôtels soigneusement sélectionnés.", en: "Travel comfortably with a private guide, an air-conditioned 4x4 and carefully selected hotels.", it: "Viaggia comodamente con una guida privata, un 4x4 climatizzato e hotel accuratamente selezionati." }, details: [{ label: { fr: "Guide Randria", en: "Guide Randria", it: "Guida Randria" }, valeur: "28€/jour", desc: { fr: "Guide francophone disponible 24h/24", en: "French-speaking guide available 24/7", it: "Guida francofona disponibile 24h/24" } }, { label: { fr: "Transport", en: "Transport", it: "Trasporto" }, valeur: "22€/jour", desc: { fr: "4x4 Toyota Hilux climatisé, essence incluse", en: "Air-conditioned Toyota Hilux 4x4, fuel included", it: "4x4 Toyota Hilux climatizzato, benzina inclusa" } }, { label: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, valeur: "25€/jour", desc: { fr: "Hôtels 2-3 étoiles propres et bien situés", en: "Clean and well-located 2-3 star hotels", it: "Hotel 2-3 stelle puliti e ben posizionati" } }, { label: { fr: "Repas", en: "Meals", it: "Pasti" }, valeur: "12€/jour", desc: { fr: "Restaurants typiques sélectionnés", en: "Selected typical restaurants", it: "Ristoranti tipici selezionati" } }, { label: { fr: "Activités", en: "Activities", it: "Attività" }, valeur: "15€/jour", desc: { fr: "Visites guidées des sites incontournables", en: "Guided tours of must-see sites", it: "Visite guidate dei siti imperdibili" } }], total: "102€/jour", image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600" },
-        premium: { id_formule: "FORM-PREM-002", titre: { fr: "🌟 Formule Premium", en: "🌟 Premium Formula", it: "🌟 Formula Premium" }, slogan: { fr: "L'excellence pour les voyageurs exigeants", en: "Excellence for demanding travelers", it: "L'eccellenza per i viaggiatori esigenti" }, description: { fr: "Lodges de charme, gastronomie raffinée, expériences exclusives. Tout est pensé pour votre confort.", en: "Charming lodges, refined gastronomy, exclusive experiences. Everything is designed for your comfort.", it: "Lodge di charme, gastronomia raffinata, esperienze esclusive. Tutto è pensato per il vostro comfort." }, details: [{ label: { fr: "Guide Randria", en: "Guide Randria", it: "Guida Randria" }, valeur: "38€/jour", desc: { fr: "Guide expert dédié, conseils personnalisés", en: "Dedicated expert guide, personalized advice", it: "Guida esperta dedicata, consigli personalizzati" } }, { label: { fr: "Transport", en: "Transport", it: "Trasporto" }, valeur: "35€/jour", desc: { fr: "4x4 haut de gamme, sièges cuir, wifi à bord", en: "High-end 4x4, leather seats, onboard wifi", it: "4x4 di alta gamma, sedili in pelle, wifi a bordo" } }, { label: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, valeur: "40€/jour", desc: { fr: "Lodges de charme avec piscine et spa", en: "Charming lodges with pool and spa", it: "Lodge di charme con piscina e spa" } }, { label: { fr: "Repas", en: "Meals", it: "Pasti" }, valeur: "20€/jour", desc: { fr: "Demi-pension en restaurants gastronomiques", en: "Half-board in gastronomic restaurants", it: "Mezza pensione in ristoranti gastronomici" } }, { label: { fr: "Activités", en: "Activities", it: "Attività" }, valeur: "22€/jour", desc: { fr: "Expériences exclusives, guides spécialisés", en: "Exclusive experiences, specialized guides", it: "Esperienze esclusive, guide specializzate" } }], total: "155€/jour", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600" },
-        luxe: { id_formule: "FORM-LUXE-003", titre: { fr: "👑 Formule Luxe", en: "👑 Luxury Formula", it: "👑 Formula Lusso" }, slogan: { fr: "L'exception malgache, rien que pour vous", en: "The Malagasy exception, just for you", it: "L'eccezione malgascia, solo per voi" }, description: { fr: "Resorts 5 étoiles, 4x4 de luxe avec chauffeur, chef privé. Le summum du voyage à Madagascar.", en: "5-star resorts, luxury 4x4 with driver, private chef. The ultimate trip to Madagascar.", it: "Resort 5 stelle, 4x4 di lusso con autista, chef privato. Il massimo del viaggio in Madagascar." }, details: [{ label: { fr: "Guide Randria", en: "Guide Randria", it: "Guida Randria" }, valeur: "55€/jour", desc: { fr: "Guide dédié exclusif, disponibilité absolue", en: "Exclusive dedicated guide, absolute availability", it: "Guida dedicata esclusiva, disponibilità assoluta" } }, { label: { fr: "Transport", en: "Transport", it: "Trasporto" }, valeur: "55€/jour", desc: { fr: "4x4 luxe avec chauffeur privé, boissons à bord", en: "Luxury 4x4 with private driver, drinks on board", it: "4x4 lusso con autista privato, bevande a bordo" } }, { label: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, valeur: "65€/jour", desc: { fr: "Resorts 5*, villas privées, service irréprochable", en: "5* resorts, private villas, impeccable service", it: "Resort 5*, ville private, servizio impeccabile" } }, { label: { fr: "Repas", en: "Meals", it: "Pasti" }, valeur: "30€/jour", desc: { fr: "Pension complète, chef privé sur demande", en: "Full board, private chef on request", it: "Pensione completa, chef privato su richiesta" } }, { label: { fr: "Activités", en: "Activities", it: "Attività" }, valeur: "28€/jour", desc: { fr: "Sur mesure : hélicoptère, yacht, guide naturaliste", en: "Tailor-made: helicopter, yacht, naturalist guide", it: "Su misura: elicottero, yacht, guida naturalistica" } }], total: "233€/jour", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600" }
+        confort: { titre: { fr: "⭐ Formule Confort", en: "⭐ Comfort Formula", it: "⭐ Formula Confort" }, slogan: { fr: "Le meilleur rapport qualité-prix pour découvrir Madagascar", en: "The best value for money to discover Madagascar", it: "Il miglior rapporto qualità-prezzo per scoprire Madagascar" }, description: { fr: "Voyagez confortablement avec un guide privé, un 4x4 climatisé et des hôtels soigneusement sélectionnés.", en: "Travel comfortably with a private guide, an air-conditioned 4x4 and carefully selected hotels.", it: "Viaggia comodamente con una guida privata, un 4x4 climatizzato e hotel accuratamente selezionati." }, details: [{ label: { fr: "Guide Randria", en: "Guide Randria", it: "Guida Randria" }, valeur: "28€/jour", desc: { fr: "Guide francophone disponible 24h/24", en: "French-speaking guide available 24/7", it: "Guida francofona disponibile 24h/24" } }, { label: { fr: "Transport", en: "Transport", it: "Trasporto" }, valeur: "22€/jour", desc: { fr: "4x4 Toyota Hilux climatisé, essence incluse", en: "Air-conditioned Toyota Hilux 4x4, fuel included", it: "4x4 Toyota Hilux climatizzato, benzina inclusa" } }, { label: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, valeur: "25€/jour", desc: { fr: "Hôtels 2-3 étoiles propres et bien situés", en: "Clean and well-located 2-3 star hotels", it: "Hotel 2-3 stelle puliti e ben posizionati" } }, { label: { fr: "Repas", en: "Meals", it: "Pasti" }, valeur: "12€/jour", desc: { fr: "Restaurants typiques sélectionnés", en: "Selected typical restaurants", it: "Ristoranti tipici selezionati" } }, { label: { fr: "Activités", en: "Activities", it: "Attività" }, valeur: "15€/jour", desc: { fr: "Visites guidées des sites incontournables", en: "Guided tours of must-see sites", it: "Visite guidate dei siti imperdibili" } }], total: "102€/jour", image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600" },
+        premium: { titre: { fr: "🌟 Formule Premium", en: "🌟 Premium Formula", it: "🌟 Formula Premium" }, slogan: { fr: "L'excellence pour les voyageurs exigeants", en: "Excellence for demanding travelers", it: "L'eccellenza per i viaggiatori esigenti" }, description: { fr: "Lodges de charme, gastronomie raffinée, expériences exclusives. Tout est pensé pour votre confort.", en: "Charming lodges, refined gastronomy, exclusive experiences. Everything is designed for your comfort.", it: "Lodge di charme, gastronomia raffinata, esperienze esclusive. Tutto è pensato per il vostro comfort." }, details: [{ label: { fr: "Guide Randria", en: "Guide Randria", it: "Guida Randria" }, valeur: "38€/jour", desc: { fr: "Guide expert dédié, conseils personnalisés", en: "Dedicated expert guide, personalized advice", it: "Guida esperta dedicata, consigli personalizzati" } }, { label: { fr: "Transport", en: "Transport", it: "Trasporto" }, valeur: "35€/jour", desc: { fr: "4x4 haut de gamme, sièges cuir, wifi à bord", en: "High-end 4x4, leather seats, onboard wifi", it: "4x4 di alta gamma, sedili in pelle, wifi a bordo" } }, { label: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, valeur: "40€/jour", desc: { fr: "Lodges de charme avec piscine et spa", en: "Charming lodges with pool and spa", it: "Lodge di charme con piscina e spa" } }, { label: { fr: "Repas", en: "Meals", it: "Pasti" }, valeur: "20€/jour", desc: { fr: "Demi-pension en restaurants gastronomiques", en: "Half-board in gastronomic restaurants", it: "Mezza pensione in ristoranti gastronomici" } }, { label: { fr: "Activités", en: "Activities", it: "Attività" }, valeur: "22€/jour", desc: { fr: "Expériences exclusives, guides spécialisés", en: "Exclusive experiences, specialized guides", it: "Esperienze esclusive, guide specializzate" } }], total: "155€/jour", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600" },
+        luxe: { titre: { fr: "👑 Formule Luxe", en: "👑 Luxury Formula", it: "👑 Formula Lusso" }, slogan: { fr: "L'exception malgache, rien que pour vous", en: "The Malagasy exception, just for you", it: "L'eccezione malgascia, solo per voi" }, description: { fr: "Resorts 5 étoiles, 4x4 de luxe avec chauffeur, chef privé. Le summum du voyage à Madagascar.", en: "5-star resorts, luxury 4x4 with driver, private chef. The ultimate trip to Madagascar.", it: "Resort 5 stelle, 4x4 di lusso con autista, chef privato. Il massimo del viaggio in Madagascar." }, details: [{ label: { fr: "Guide Randria", en: "Guide Randria", it: "Guida Randria" }, valeur: "55€/jour", desc: { fr: "Guide dédié exclusif, disponibilité absolue", en: "Exclusive dedicated guide, absolute availability", it: "Guida dedicata esclusiva, disponibilità assoluta" } }, { label: { fr: "Transport", en: "Transport", it: "Trasporto" }, valeur: "55€/jour", desc: { fr: "4x4 luxe avec chauffeur privé, boissons à bord", en: "Luxury 4x4 with private driver, drinks on board", it: "4x4 lusso con autista privato, bevande a bordo" } }, { label: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, valeur: "65€/jour", desc: { fr: "Resorts 5*, villas privées, service irréprochable", en: "5* resorts, private villas, impeccable service", it: "Resort 5*, ville private, servizio impeccabile" } }, { label: { fr: "Repas", en: "Meals", it: "Pasti" }, valeur: "30€/jour", desc: { fr: "Pension complète, chef privé sur demande", en: "Full board, private chef on request", it: "Pensione completa, chef privato su richiesta" } }, { label: { fr: "Activités", en: "Activities", it: "Attività" }, valeur: "28€/jour", desc: { fr: "Sur mesure : hélicoptère, yacht, guide naturaliste", en: "Tailor-made: helicopter, yacht, naturalist guide", it: "Su misura: elicottero, yacht, guida naturalistica" } }], total: "233€/jour", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600" }
     };
     const servicesData = [
-        { id_formule: "FORM-CONF-001", name: { fr: "Formule Confort", en: "Comfort Formula", it: "Formula Confort" }, desc: { fr: "Guide privé, 4x4 climatisé, hôtels 2-3*. Le meilleur rapport qualité-prix.", en: "Private guide, air-conditioned 4x4, 2-3* hotels. Best value for money.", it: "Guida privata, 4x4 climatizzato, hotel 2-3*. Il miglior rapporto qualità-prezzo." }, badge: "⭐ Confort", formula: "confort" },
-        { id_formule: "FORM-PREM-002", name: { fr: "Formule Premium", en: "Premium Formula", it: "Formula Premium" }, desc: { fr: "Lodges de charme, gastronomie, expériences exclusives.", en: "Charming lodges, gastronomy, exclusive experiences.", it: "Lodge di charme, gastronomia, esperienze esclusive." }, badge: "🌟 Premium", formula: "premium" },
-        { id_formule: "FORM-LUXE-003", name: { fr: "Formule Luxe", en: "Luxury Formula", it: "Formula Lusso" }, desc: { fr: "Resorts 5*, 4x4 luxe, chef privé. L'excellence absolue.", en: "5* resorts, luxury 4x4, private chef. Absolute excellence.", it: "Resort 5*, 4x4 lusso, chef privato. L'eccellenza assoluta." }, badge: "👑 Luxe", formula: "luxe" }
+        { name: { fr: "Formule Confort", en: "Comfort Formula", it: "Formula Confort" }, desc: { fr: "Guide privé, 4x4 climatisé, hôtels 2-3*. Le meilleur rapport qualité-prix.", en: "Private guide, air-conditioned 4x4, 2-3* hotels. Best value for money.", it: "Guida privata, 4x4 climatizzato, hotel 2-3*. Il miglior rapporto qualità-prezzo." }, badge: "⭐ Confort", formula: "confort" },
+        { name: { fr: "Formule Premium", en: "Premium Formula", it: "Formula Premium" }, desc: { fr: "Lodges de charme, gastronomie, expériences exclusives.", en: "Charming lodges, gastronomy, exclusive experiences.", it: "Lodge di charme, gastronomia, esperienze esclusive." }, badge: "🌟 Premium", formula: "premium" },
+        { name: { fr: "Formule Luxe", en: "Luxury Formula", it: "Formula Lusso" }, desc: { fr: "Resorts 5*, 4x4 luxe, chef privé. L'excellence absolue.", en: "5* resorts, luxury 4x4, private chef. Absolute excellence.", it: "Resort 5*, 4x4 lusso, chef privato. L'eccellenza assoluta." }, badge: "👑 Luxe", formula: "luxe" }
     ];
     
+    const partnersData = [
+        { name: "Tsiky Trans", type: { fr: "Location 4x4", en: "4x4 Rental", it: "Noleggio 4x4" }, desc: { fr: "Flotte de Toyota Hilux récents, conducteurs expérimentés.", en: "Fleet of recent Toyota Hilux, experienced drivers.", it: "Flotta di Toyota Hilux recenti, autisti esperti." }, contact: "+261 34 12 345 67", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" },
+        { name: "Villa Baobab", type: { fr: "Hébergement", en: "Accommodation", it: "Alloggio" }, desc: { fr: "Lodge de charme à Majunga face à la mer.", en: "Charming lodge in Majunga facing the sea.", it: "Lodge di charme a Majunga vista mare." }, contact: "Via Randria", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400" },
+        { name: "MadaBike", type: { fr: "Moto/Quad", en: "Motorcycle/Quad", it: "Moto/Quad" }, desc: { fr: "Location motos 125cc et quads.", en: "125cc motorcycle and quad rental.", it: "Noleggio moto 125cc e quad." }, contact: "Sur place", image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=400" },
+        { name: "Local Food Tour", type: { fr: "Cuisine", en: "Cooking", it: "Cucina" }, desc: { fr: "Cours de cuisine malgache avec Mamy.", en: "Malagasy cooking class with Mamy.", it: "Corso di cucina malgascia con Mamy." }, contact: "Sur réservation", image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400" }
+    ];
+    const transportDetailsData = {
+        tana: [{ title: { fr: "🛬 Ivato → Centre-ville", en: "🛬 Ivato → City Center", it: "🛬 Ivato → Centro città" }, desc: { fr: "Transfert privé 4x4.", en: "Private 4x4 transfer.", it: "Trasferimento privato 4x4." }, prix: "40 000 Ar (8€)", roots: "Taxi-brousse : 5 000 Ar" }],
+        majunga: [{ title: { fr: "🛬 Aéroport → Ville", en: "🛬 Airport → City", it: "🛬 Aeroporto → Città" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "25 000 Ar (5€)", roots: "Taxi : 5 000 Ar" }],
+        nosybe: [{ title: { fr: "🛬 Fascene → Hell-Ville", en: "🛬 Fascene → Hell-Ville", it: "🛬 Fascene → Hell-Ville" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "35 000 Ar (7€)", roots: "Taxi : 5 000 Ar" }],
+        diego: [{ title: { fr: "🛬 Aéroport → Centre", en: "🛬 Airport → Center", it: "🛬 Aeroporto → Centro" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "25 000 Ar (5€)", roots: "Taxi : 5 000 Ar" }],
+        tamatave: [{ title: { fr: "🛬 Aéroport → Centre", en: "🛬 Airport → Center", it: "🛬 Aeroporto → Centro" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "20 000 Ar (4€)", roots: "Taxi : 3 000 Ar" }]
+    };
     const faqData = [
         { q: { fr: "Où est basé Randria ?", en: "Where is Randria based?", it: "Dove ha base Randria?" }, a: { fr: "Entre Tana et Majunga. Il se déplace sur tout Madagascar. Junga Tour couvre toute l'île.", en: "Between Tana and Majunga. He travels all over Madagascar. Junga Tour covers the whole island.", it: "Tra Tana e Majunga. Si sposta in tutto il Madagascar. Junga Tour copre tutta l'isola." } },
-        { q: { fr: "Comment payer ?", en: "How to pay?", it: "Come pagare?" }, a: { fr: "Paiement 100% en ligne par carte bancaire (Stripe). Plus de paiement sur place.", en: "100% online payment by credit card (Stripe). No more on-site payment.", it: "Pagamento 100% online con carta di credito (Stripe). Nessun pagamento sul posto." } },
+        { q: { fr: "Comment payer ?", en: "How to pay?", it: "Come pagare?" }, a: { fr: "Acompte en ligne : 30€ frais dossier + 30% du solde. Le reste sur place à Randria.", en: "Online deposit: 30€ dossier fee + 30% of the balance. The rest on site with Randria.", it: "Acconto online: 30€ tassa pratica + 30% del saldo. Il resto sul posto a Randria." } },
         { q: { fr: "Meilleure période ?", en: "Best period?", it: "Periodo migliore?" }, a: { fr: "Avril à novembre (saison sèche). Baleines à Nosy Be en juillet-août.", en: "April to November (dry season). Whales in Nosy Be in July-August.", it: "Aprile a novembre (stagione secca). Balene a Nosy Be in luglio-agosto." } },
         { q: { fr: "Faut-il un visa ?", en: "Is a visa required?", it: "Serve il visto?" }, a: { fr: "Oui, 35€ à l'arrivée pour 30 jours. Passeport valide 6 mois.", en: "Yes, 35€ on arrival for 30 days. Passport valid for 6 months.", it: "Sì, 35€ all'arrivo per 30 giorni. Passaporto valido 6 mesi." } },
         { q: { fr: "Les guides sont-ils formés aux premiers secours ?", en: "Are the guides trained in first aid?", it: "Le guide sono formate al primo soccorso?" }, a: { fr: "<strong>Oui !</strong> Tous nos guides HOLDEST sont formés aux gestes qui sauvent.", en: "<strong>Yes!</strong> All our HOLDEST guides are trained in life-saving techniques.", it: "<strong>Sì!</strong> Tutte le nostre guide HOLDEST sono formate alle manovre salvavita." } },
         { q: { fr: "Que se passe-t-il si mon vol a du retard ?", en: "What happens if my flight is delayed?", it: "Cosa succede se il mio volo è in ritardo?" }, a: { fr: "<strong>L'attente est GRATUITE et illimitée.</strong> Randria suit votre vol en temps réel.", en: "<strong>Waiting is FREE and unlimited.</strong> Randria tracks your flight in real time.", it: "<strong>L'attesa è GRATUITA e illimitata.</strong> Randria segue il tuo volo in tempo reale." } },
         { q: { fr: "Quels sont les avis TripAdvisor ?", en: "What are the TripAdvisor reviews?", it: "Quali sono le recensioni TripAdvisor?" }, a: { fr: "Junga Tour est noté <strong>5/5 étoiles</strong> sur TripAdvisor.", en: "Junga Tour is rated <strong>5/5 stars</strong> on TripAdvisor.", it: "Junga Tour è valutato <strong>5/5 stelle</strong> su TripAdvisor." } },
         { q: { fr: "Que signifie 'Mora Mora' ?", en: "What does 'Mora Mora' mean?", it: "Cosa significa 'Mora Mora'?" }, a: { fr: "C'est l'art de prendre son temps, de ne pas stresser.", en: "It's the art of taking your time, not stressing.", it: "È l'arte di prendersi il proprio tempo, di non stressarsi." } },
-        { q: { fr: "Quelle est votre politique d'annulation ?", en: "What is your cancellation policy?", it: "Qual è la vostra politica di cancellazione?" }, a: { fr: "<strong>Garantie HOLDEST :</strong> Annulation jusqu'à 7 jours avant = remboursement intégral.", en: "<strong>HOLDEST Guarantee:</strong> Cancellation up to 7 days before = full refund.", it: "<strong>Garanzia HOLDEST:</strong> Cancellazione fino a 7 giorni prima = rimborso completo." } }
+        { q: { fr: "Quelle est votre politique d'annulation ?", en: "What is your cancellation policy?", it: "Qual è la vostra politica di cancellazione?" }, a: { fr: "<strong>Garantie HOLDEST :</strong> Annulation J-7 = remboursement 100% (hors 30€ dossier).", en: "<strong>HOLDEST Guarantee:</strong> Cancellation D-7 = 100% refund (excl. 30€ fee).", it: "<strong>Garanzia HOLDEST:</strong> Cancellazione D-7 = rimborso 100% (escl. 30€ pratica)." } }
     ];
     const testimonialsData = [
         { text: { fr: "Randria, un frère. Il m'a fait découvrir le vrai Madagascar. Inoubliable.", en: "Randria, a brother. He made me discover the real Madagascar. Unforgettable.", it: "Randria, un fratello. Mi ha fatto scoprire il vero Madagascar. Indimenticabile." }, author: "Sophie & Marc (Paris)", stars: 5, source: "TripAdvisor" },
@@ -1342,7 +1322,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     function toggleDarkMode() { document.body.classList.toggle('dark-mode'); showToast(currentLang === 'fr' ? "🌙 Mode nuit activé" : "🌙 Dark mode enabled"); }
-    function closeAdminPanel() { document.getElementById('adminPanel').classList.remove('visible'); }
+    function toggleAdminPanel() { document.getElementById('adminPanel').classList.toggle('visible'); }
     function copyManagerCode() { navigator.clipboard.writeText("HOLDEST_MANAGER_2025"); showToast("✅ Code copié !"); }
     function openRootsInterface() { document.getElementById('rootsInterface').classList.add('active'); updateRootsBudgetDisplay(); }
     function closeRootsInterface() { document.getElementById('rootsInterface').classList.remove('active'); }
@@ -1370,24 +1350,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         const formula = document.getElementById('registerFormula').value;
         const days = parseInt(document.getElementById('registerDays').value);
         if (!name || !email || !password || !city || !formula || !days) { showToast("Tous les champs requis"); return; }
-        
-        const { data, error } = await supabase.auth.signUp({ 
-            email, 
-            password, 
-            options: { 
-                data: { name, origin, preferences: { city, formula, days } },
-                emailRedirectTo: window.location.origin + '/#confirm-email'
-            } 
-        });
+        const { error } = await supabase.auth.signUp({ email, password, options: { data: { name, origin, preferences: { city, formula, days } } } });
         if (error) { showToast(error.message); return; }
-        showToast("✅ Compte créé ! Un email de confirmation vous a été envoyé.");
+        showToast("✅ Compte créé ! Vérifiez vos emails.");
         closeModal('registerModal');
-        localStorage.setItem('pendingRegistration', JSON.stringify({ name, email, origin, city, formula, days }));
         userPreferences = { name, city, formula, days, origin };
         await updateSession();
         updateHeaderUI();
     }
-    
     async function loginSupabase() {
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
@@ -1399,21 +1369,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         updateHeaderUI();
         if (isAdmin) { document.getElementById('managerSection').classList.add('visible'); loadAdminData(); } 
         else { document.getElementById('managerSection').classList.remove('visible'); }
-        const pending = localStorage.getItem('pendingRegistration');
-        if (pending) {
-            const prefs = JSON.parse(pending);
-            userPreferences = { name: prefs.name, city: prefs.city, formula: prefs.formula, days: prefs.days, origin: prefs.origin };
-            userCity = prefs.city;
-            userFormula = prefs.formula;
-            userDays = prefs.days;
-            localStorage.removeItem('pendingRegistration');
-            updateBudgetDisplay();
-            updateMonVoyageDisplay();
-            updateOriginInfo();
-            showToast("Bienvenue ! Vos préférences ont été chargées.");
-        }
     }
-    
     async function logoutSupabase() {
         await supabase.auth.signOut();
         currentUser = null; isAdmin = false;
@@ -1425,7 +1381,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         document.getElementById('monVoyageSection').style.display = 'none';
         showToast("Déconnecté");
     }
-    
     async function updateSession() {
         const { data: { session } } = await supabase.auth.getSession();
         currentUser = session?.user || null;
@@ -1443,7 +1398,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         } else { isAdmin = false; }
         updateHeaderUI();
     }
-    
+    function updateUIAfterLogin() {
+        updateHeaderUI(); updateBudgetDisplay(); updateMonVoyageDisplay(); updateOriginInfo(); updateExtrasDisplay(userCity); updateMiniMap(userCity);
+    }
     function updateHeaderUI() {
         const header = document.getElementById('headerButtons');
         const budgetSerreText = { fr: 'Budget Serré', en: 'Low Budget', it: 'Budget Serré' };
@@ -1453,7 +1410,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             header.innerHTML = `<div class="lang-selector"><button class="lang-btn ${currentLang==='fr'?'active':''}" onclick="changeLanguage('fr')">🇫🇷</button><button class="lang-btn ${currentLang==='en'?'active':''}" onclick="changeLanguage('en')">🇬🇧</button><button class="lang-btn ${currentLang==='it'?'active':''}" onclick="changeLanguage('it')">🇮🇹</button></div><button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Mode nuit</button><button class="btn-sm btn-outline" onclick="openModal('loginModal')">Se connecter</button><button class="btn-sm btn-filled" onclick="openModal('registerModal')">S'inscrire</button><button class="btn-sm btn-dark" onclick="openRootsInterface()"><i class="fas fa-fire"></i> ${budgetSerreText[currentLang]}</button>`;
         }
     }
-    
     function showUserProfile() {
         if (!currentUser) { openModal('loginModal'); return; }
         const cityName = destinationsData.find(d => d.key === userCity)?.name || userCity;
@@ -1465,213 +1421,69 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         openModal('profileModal');
     }
 
-    // ==================== ADMIN AMÉLIORÉ ====================
-    let adminCurrentTab = 'dashboard';
-    
-    async function loadAdminData() { 
-        await renderAdminContent(); 
-        setupAdminTabs(); 
-    }
-    
-    async function renderAdminContent() {
-        const contentDiv = document.getElementById('adminContent');
-        if (adminCurrentTab === 'dashboard') {
-            const { count: devisCount } = await supabase.from('devis').select('*', { count: 'exact', head: true });
-            const { count: partenairesCount } = await supabase.from('partenaires').select('*', { count: 'exact', head: true });
-            const { count: usersCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
-            const { data: recentDevis } = await supabase.from('devis').select('*').order('created_at', { ascending: false }).limit(5);
-            const { data: reservations } = await supabase.from('reservations').select('*').order('created_at', { ascending: false }).limit(5);
-            contentDiv.innerHTML = `
-                <div class="admin-dashboard-stats">
-                    <div class="admin-stat-card"><div class="admin-stat-number">${devisCount || 0}</div><div class="admin-stat-label">Devis reçus</div></div>
-                    <div class="admin-stat-card"><div class="admin-stat-number">${partenairesCount || 0}</div><div class="admin-stat-label">Partenaires</div></div>
-                    <div class="admin-stat-card"><div class="admin-stat-number">${usersCount || 0}</div><div class="admin-stat-label">Utilisateurs</div></div>
-                </div>
-                <h4>📋 Derniers devis</h4>
-                ${recentDevis?.length ? recentDevis.map(d => `<div class="admin-item"><div><strong>${d.nom}</strong> - ${d.email}<br><small>${d.destination || ''} | ${d.formule || ''} | ${d.duree || ''}j</small></div><span class="admin-badge ${d.status === 'valide' ? 'validated' : 'pending'}">${d.status || 'en attente'}</span></div>`).join('') : '<div>Aucun devis récent</div>'}
-                <h4 style="margin-top:16px;">📅 Dernières réservations</h4>
-                ${reservations?.length ? reservations.map(r => `<div class="admin-item"><div><strong>${r.client_nom}</strong> - ${r.client_email}<br><small>${r.destination} | ${r.formule} | ${r.duree}j | ${new Date(r.created_at).toLocaleDateString()}</small></div><span class="admin-badge">${r.status}</span></div>`).join('') : '<div>Aucune réservation</div>'}
-                <button class="admin-btn admin-btn-validate" style="margin-top:12px;" onclick="loadAdminDevis()">Voir tous les devis</button>
-            `;
-        } else if (adminCurrentTab === 'circuits') {
-            contentDiv.innerHTML = `
-                <h4>🗺️ Circuits avec IDs</h4>
-                ${circuitsData.map(c => `<div class="admin-item"><div><strong>${c.name}</strong><br><span class="id-badge">${c.id_circuit}</span></div><div>Prix: ${c.price}€/jour</div></div>`).join('')}
-                <h4 style="margin-top:20px;">🛡️ Formules avec IDs</h4>
-                ${formulesData.map(f => `<div class="admin-item"><div><strong>${f.name}</strong><br><span class="id-badge">${f.id_formule}</span></div><div>Prix: ${f.price}€/jour</div></div>`).join('')}
-                <button class="admin-btn admin-btn-validate" style="margin-top:12px;" onclick="showAddCircuitForm()">➕ Ajouter un circuit</button>
-            `;
-        } else if (adminCurrentTab === 'devis') {
-            const { data: devis } = await supabase.from('devis').select('*').order('created_at', { ascending: false });
-            contentDiv.innerHTML = `
-                <h4>📋 Tous les devis</h4>
-                ${devis?.length ? devis.map(d => `<div class="admin-item"><div><strong>${d.nom}</strong> - ${d.email}<br><small>${d.destination || ''} | ${d.formule || ''} | ${d.duree || ''}j | ${new Date(d.created_at).toLocaleDateString()}</small></div><div><button class="admin-btn admin-btn-validate" onclick="updateDevisStatus('${d.id}', 'valide')">✅ Valider</button><button class="admin-btn admin-btn-delete" onclick="updateDevisStatus('${d.id}', 'refuse')">❌ Refuser</button></div></div>`).join('') : '<div>Aucun devis</div>'}
-            `;
-        } else if (adminCurrentTab === 'partenaires') {
-            const { data: partenaires } = await supabase.from('partenaires').select('*').order('created_at', { ascending: false });
-            contentDiv.innerHTML = `
-                <h4>🤝 Demandes partenaires</h4>
-                ${partenaires?.length ? partenaires.map(p => `<div class="admin-item"><div><strong>${p.nom}</strong> - ${p.email}<br><small>${p.ville} | ${p.type}</small><br><small>📱 Orange Money: ${p.mobile_money || 'Non renseigné'}</small><br><small>${p.description?.substring(0, 80)}...</small></div><div><button class="admin-btn admin-btn-validate" onclick="validatePartner('${p.id}')">✅ Valider</button><button class="admin-btn admin-btn-delete" onclick="deletePartner('${p.id}')">🗑️ Supprimer</button><span class="admin-badge ${p.valide ? 'validated' : 'pending'}">${p.valide ? 'Validé' : 'En attente'}</span></div></div>`).join('') : '<div>Aucune demande</div>'}
-            `;
-        } else if (adminCurrentTab === 'utilisateurs') {
-            const { data: users } = await supabase.from('profiles').select('*');
-            contentDiv.innerHTML = `
-                <h4>👥 Utilisateurs inscrits</h4>
-                ${users?.length ? users.map(u => `<div class="admin-item"><div><strong>${u.name || u.email}</strong><br><small>${u.email}</small></div><div><button class="admin-btn admin-btn-validate" onclick="toggleAdminUser('${u.id}', ${!u.is_admin})">${u.is_admin ? 'Retirer admin' : 'Rendre admin'}</button></div></div>`).join('') : '<div>Aucun utilisateur</div>'}
-            `;
-        } else if (adminCurrentTab === 'reservations') {
-            const { data: reservations } = await supabase.from('reservations').select('*').order('created_at', { ascending: false });
-            contentDiv.innerHTML = `
-                <h4>📅 Toutes les réservations payées</h4>
-                ${reservations?.length ? reservations.map(r => `<div class="admin-item"><div><strong>${r.client_nom}</strong> - ${r.client_email}<br><small>${r.destination} | ${r.formule} | ${r.duree}j | Montant: ${r.montant_total}€</small></div><span class="admin-badge ${r.status === 'paye' ? 'validated' : 'pending'}">${r.status}</span></div>`).join('') : '<div>Aucune réservation</div>'}
-            `;
-        }
-    }
-    
-    async function loadAdminDevis() {
-        adminCurrentTab = 'devis';
-        await renderAdminContent();
-        document.querySelectorAll('.admin-tab').forEach(t => {
-            t.classList.toggle('active', t.dataset.adminTab === 'devis');
-        });
-    }
-    
-    async function updateDevisStatus(id, status) {
-        const { error } = await supabase.from('devis').update({ status }).eq('id', id);
-        if (error) showToast("Erreur: " + error.message);
-        else { showToast(`Devis ${status === 'valide' ? 'validé' : 'refusé'}`); loadAdminDevis(); }
-    }
-    
-    async function validatePartner(id) {
-        const { error } = await supabase.from('partenaires').update({ valide: true }).eq('id', id);
-        if (error) showToast("Erreur: " + error.message);
-        else { showToast("Partenaire validé !"); renderAdminContent(); renderPartenairesList(); }
-    }
-    
-    async function deletePartner(id) {
-        const { error } = await supabase.from('partenaires').delete().eq('id', id);
-        if (error) showToast("Erreur: " + error.message);
-        else { showToast("Partenaire supprimé"); renderAdminContent(); renderPartenairesList(); }
-    }
-    
-    async function toggleAdminUser(id, makeAdmin) {
-        const { error } = await supabase.from('profiles').update({ is_admin: makeAdmin }).eq('id', id);
-        if (error) showToast("Erreur: " + error.message);
-        else { showToast(`Admin ${makeAdmin ? 'ajouté' : 'retiré'}`); renderAdminContent(); }
-    }
-    
-    function showAddCircuitForm() {
-        const newId = prompt("Entrez l'ID du nouveau circuit (ex: CIRC-NEW-006):");
-        if (!newId) return;
-        const newName = prompt("Nom du circuit:");
-        if (!newName) return;
-        const newPrice = parseFloat(prompt("Prix par jour en €:"));
-        if (isNaN(newPrice)) return;
-        circuitsData.push({ id_circuit: newId, name: newName, key: newName.toLowerCase().replace(/\s/g, ''), price: newPrice });
-        destinationsData.push({ id_circuit: newId, name: newName, desc: { fr: "Nouveau circuit", en: "New circuit", it: "Nuovo circuito" }, image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600", badge: "Nouveau", meteo: { fr: "☀️ Toute l'année", en: "☀️ All year", it: "☀️ Tutto l'anno" }, duree: { fr: "3-5 jours", en: "3-5 days", it: "3-5 giorni" }, activites: { fr: "À découvrir", en: "To discover", it: "Da scoprire" }, key: newName.toLowerCase().replace(/\s/g, '') });
-        renderDestinations();
-        renderAdminContent();
-        showToast(`Circuit ${newName} ajouté avec ID ${newId}`);
-    }
-    
-    function setupAdminTabs() { 
-        const tabs = document.querySelectorAll('.admin-tab');
-        tabs.forEach(tab => {
-            tab.onclick = () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                adminCurrentTab = tab.dataset.adminTab;
-                renderAdminContent();
-            };
-        });
-    }
-    
-    function toggleAdminPanel() { 
-        const panel = document.getElementById('adminPanel');
-        if (panel.classList.contains('visible')) { panel.classList.remove('visible'); }
-        else { if (isAdmin) { renderAdminContent(); panel.classList.add('visible'); } else { showToast("Accès réservé aux administrateurs"); } }
-    }
-
-    window.loadAdminDevis = loadAdminDevis;
-    window.updateDevisStatus = updateDevisStatus;
-    window.validatePartner = validatePartner;
-    window.deletePartner = deletePartner;
-    window.toggleAdminUser = toggleAdminUser;
-    window.showAddCircuitForm = showAddCircuitForm;
+    // ==================== ADMIN ====================
+    async function loadAdminData() { await loadAdminDevis(); setupAdminTabs(); }
+    async function loadAdminDevis() { const { data } = await supabase.from('devis').select('*').order('created_at', { ascending: false }); document.getElementById('adminContent').innerHTML = data?.length ? data.map(d => `<div class="admin-item"><strong>${d.nom}</strong> - ${d.email}<br><small>${d.destination || ''} | ${d.formule || ''} | ${d.duree || ''}j</small><span class="admin-badge">📋 ${d.status || 'en attente'}</span></div>`).join('') : '<div>Aucun devis</div>'; }
+    async function loadAdminPartenaires() { const { data } = await supabase.from('partenaires').select('*').order('created_at', { ascending: false }); document.getElementById('adminContent').innerHTML = data?.length ? data.map(p => `<div class="admin-item"><strong>${p.nom}</strong> - ${p.email}<br><small>${p.ville} | ${p.type}</small><span class="admin-badge">${p.valide ? '✅ Validé' : '⏳ En attente'}</span></div>`).join('') : '<div>Aucun partenaire</div>'; }
+    async function loadAdminAvis() { const { data } = await supabase.from('avis').select('*').order('created_at', { ascending: false }); document.getElementById('adminContent').innerHTML = data?.length ? data.map(a => `<div class="admin-item"><strong>⭐ ${a.note}/5</strong><br><small>${a.commentaire?.substring(0,80)||''}</small><span class="admin-badge">${a.valide ? '✅ Publié' : '⏳ En attente'}</span></div>`).join('') : '<div>Aucun avis</div>'; }
+    function setupAdminTabs() { document.querySelectorAll('.admin-tab').forEach(tab => { tab.onclick = () => { document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); if (tab.dataset.adminTab === 'devis') loadAdminDevis(); else if (tab.dataset.adminTab === 'partenaires') loadAdminPartenaires(); else if (tab.dataset.adminTab === 'avis') loadAdminAvis(); }; }); }
 
     // ==================== FORMULAIRES SUPABASE ====================
-    document.getElementById('devisForm')?.addEventListener('submit', async (e) => { 
-        e.preventDefault(); 
-        const destName = document.getElementById('devisDestination').value;
-        const circuit = circuitsData.find(c => c.name === destName);
-        const id_circuit = circuit ? circuit.id_circuit : null;
-        const formuleName = document.getElementById('devisFormule').value;
-        const formule = formulesData.find(f => f.nom === formuleName);
-        const id_formule = formule ? formule.id_formule : null;
-        const payload = { 
-            nom: document.getElementById('devisNom').value, 
-            email: document.getElementById('devisEmail').value, 
-            telephone: document.getElementById('devisTel').value, 
-            destination: destName,
-            id_circuit: id_circuit,
-            id_formule: id_formule,
-            duree: parseInt(document.getElementById('devisDuree').value), 
-            formule: formuleName, 
-            message: document.getElementById('devisMessage').value, 
-            status: 'recu',
-            created_at: new Date() 
-        }; 
-        const { error } = await supabase.from('devis').insert([payload]); 
-        if (error) showToast("Erreur: "+error.message); 
-        else { 
-            showToast("✅ Devis envoyé ! Vous recevrez une réponse sous 24h."); 
-            closeModal('devisModal'); 
-            e.target.reset(); 
-        } 
-    });
+    document.getElementById('devisForm')?.addEventListener('submit', async (e) => { e.preventDefault(); const payload = { nom: document.getElementById('devisNom').value, email: document.getElementById('devisEmail').value, telephone: document.getElementById('devisTel').value, destination: document.getElementById('devisDestination').value, duree: parseInt(document.getElementById('devisDuree').value), formule: document.getElementById('devisFormule').value, message: document.getElementById('devisMessage').value, status: 'en_attente', created_at: new Date() }; const { error } = await supabase.from('devis').insert([payload]); if (error) showToast("Erreur: "+error.message); else { showToast("✅ Devis envoyé !"); closeModal('devisModal'); e.target.reset(); } });
     
-    // ==================== PARTENAIRE AVEC ORANGE MONEY ====================
+    // Formulaire partenaire amélioré
     const partnershipForm = document.getElementById('partnershipForm');
     const partnerFullname = document.getElementById('partnerFullname');
     const partnerEmail = document.getElementById('partnerEmail');
     const partnerPhone = document.getElementById('partnerPhone');
-    const partnerMobileMoney = document.getElementById('partnerMobileMoney');
     const partnerCity = document.getElementById('partnerCity');
     const partnerServiceType = document.getElementById('partnerServiceType');
     const partnerDescription = document.getElementById('partnerDescription');
     const partnerPriceEur = document.getElementById('partnerPriceEur');
     const partnerPriceAr = document.getElementById('partnerPriceAr');
+    const partnerWeekEur = document.getElementById('partnerWeekEur');
+    const partnerWeekAr = document.getElementById('partnerWeekAr');
     const partnerJustify = document.getElementById('partnerJustify');
     const partnerPhotoInput = document.getElementById('partnerPhotoInput');
     const partnerUploadTrigger = document.getElementById('partnerUploadTrigger');
     const partnerImagePreviewContainer = document.getElementById('partnerImagePreviewContainer');
     
+    // Synchronisation Euro ↔ Ariary pour le formulaire partenaire
     function syncPartnerEurToAr() {
         let eur = parseFloat(partnerPriceEur.value);
-        if (!isNaN(eur) && eur > 0) partnerPriceAr.value = Math.round(eur * currentExchangeRate);
+        if (!isNaN(eur) && eur > 0) partnerPriceAr.value = Math.round(eur * 5000);
     }
     function syncPartnerArToEur() {
         let ar = parseFloat(partnerPriceAr.value);
-        if (!isNaN(ar) && ar > 0) partnerPriceEur.value = Math.round(ar / currentExchangeRate);
+        if (!isNaN(ar) && ar > 0) partnerPriceEur.value = Math.round(ar / 5000);
     }
     partnerPriceEur.addEventListener('input', syncPartnerEurToAr);
     partnerPriceAr.addEventListener('input', syncPartnerArToEur);
     
+    // Mise à jour récapitulatif partenaire
     function updatePartnerRecap() {
         document.getElementById('recapPartnerName').innerText = partnerFullname.value.trim() || "—";
         document.getElementById('recapPartnerContact').innerText = partnerEmail.value + " / " + partnerPhone.value || "—";
-        document.getElementById('recapPartnerMobileMoney').innerText = partnerMobileMoney.value || "—";
         document.getElementById('recapPartnerCity').innerText = partnerCity.value || "—";
         let serviceText = partnerServiceType.options[partnerServiceType.selectedIndex]?.text.split(' ').slice(1).join(' ') || "—";
         document.getElementById('recapPartnerService').innerText = serviceText;
         document.getElementById('recapPartnerDesc').innerText = partnerDescription.value.substring(0, 70) || "—";
+        
         let dayPrice = "";
         if (partnerPriceEur.value) dayPrice += partnerPriceEur.value + " €";
         if (partnerPriceAr.value) dayPrice += " / " + parseInt(partnerPriceAr.value).toLocaleString() + " Ar";
         document.getElementById('recapPartnerPriceDay').innerText = dayPrice || "—";
+        
+        let weekPrice = "";
+        if (partnerWeekEur.value) weekPrice += partnerWeekEur.value + " €";
+        if (partnerWeekAr.value) weekPrice += " / " + parseInt(partnerWeekAr.value).toLocaleString() + " Ar";
+        document.getElementById('recapPartnerPriceWeek').innerText = weekPrice || "Non renseigné";
+        
+        document.getElementById('recapPartnerPhotoStatus').innerHTML = currentPartnerImageBase64 ? "✅ Photo ajoutée" : "❌ Aucune";
         document.getElementById('recapPartnerJustify').innerText = partnerJustify.value.substring(0, 50) || "—";
     }
     
+    // Gestion upload photo partenaire
     partnerUploadTrigger.addEventListener('click', () => partnerPhotoInput.click());
     partnerUploadTrigger.addEventListener('dragover', (e) => { e.preventDefault(); partnerUploadTrigger.style.borderColor = "#c85a17"; });
     partnerUploadTrigger.addEventListener('dragleave', () => partnerUploadTrigger.style.borderColor = "#cbd5cb");
@@ -1688,14 +1500,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function handlePartnerImageFile(file) {
         const reader = new FileReader();
         reader.onload = (event) => {
-            const imgDataUrl = event.target.result;
-            partnerImagePreviewContainer.innerHTML = `<img class="preview-img" src="${imgDataUrl}" alt="preview">`;
-            currentPartnerImageFile = file;
+            currentPartnerImageBase64 = event.target.result;
+            partnerImagePreviewContainer.innerHTML = `<img class="preview-img" src="${currentPartnerImageBase64}" alt="preview">`;
             updatePartnerRecap();
         };
         reader.readAsDataURL(file);
     }
     
+    // Négociation -20%
     function negotiatePartnerPrice() {
         let current = parseFloat(partnerPriceEur.value);
         if (!isNaN(current) && current > 0) {
@@ -1709,76 +1521,85 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
     }
     
+    // Réinitialisation formulaire partenaire
     function resetPartnerForm() {
         partnerFullname.value = '';
         partnerEmail.value = '';
         partnerPhone.value = '';
-        partnerMobileMoney.value = '';
         partnerCity.value = '';
         partnerServiceType.value = '';
         partnerDescription.value = '';
         partnerPriceEur.value = '35';
-        partnerPriceAr.value = String(Math.round(35 * currentExchangeRate));
+        partnerPriceAr.value = '175000';
+        partnerWeekEur.value = '';
+        partnerWeekAr.value = '';
         partnerJustify.value = '';
-        currentPartnerImageFile = null;
+        currentPartnerImageBase64 = null;
         partnerImagePreviewContainer.innerHTML = '';
         partnerPhotoInput.value = '';
         updatePartnerRecap();
         showToast("Formulaire réinitialisé");
     }
     
+    // Envoi demande partenaire
     async function submitPartnerRequest() {
-        if (!partnerFullname.value || !partnerEmail.value || !partnerPhone.value || !partnerMobileMoney.value || !partnerCity.value || !partnerServiceType.value || !partnerDescription.value || !partnerJustify.value) {
+        if (!partnerFullname.value || !partnerEmail.value || !partnerPhone.value || !partnerCity.value || !partnerServiceType.value || !partnerDescription.value || !partnerJustify.value) {
             showToast("Tous les champs obligatoires doivent être remplis");
             return;
         }
         
-        let photoUrl = null;
-        if (currentPartnerImageFile) {
-            const fileName = `${Date.now()}_${currentPartnerImageFile.name}`;
-            const { error: uploadError } = await supabase.storage
-                .from('partenaires-photos')
-                .upload(`public/${fileName}`, currentPartnerImageFile);
-            if (!uploadError) {
-                const { data: urlData } = supabase.storage
-                    .from('partenaires-photos')
-                    .getPublicUrl(`public/${fileName}`);
-                photoUrl = urlData.publicUrl;
-            }
-        }
-        
         const requestData = {
+            id: Date.now(),
             nom: partnerFullname.value,
             email: partnerEmail.value,
             telephone: partnerPhone.value,
-            mobile_money: partnerMobileMoney.value,
             ville: partnerCity.value,
-            type: partnerServiceType.value,
-            description: partnerDescription.value,
-            photo: photoUrl,
+            serviceType: partnerServiceType.value,
+            detail: partnerDescription.value,
+            prixJourEur: parseFloat(partnerPriceEur.value) || 0,
+            prixJourAr: parseInt(partnerPriceAr.value) || 0,
+            prixSemaineEur: parseFloat(partnerWeekEur.value) || 0,
+            prixSemaineAr: parseInt(partnerWeekAr.value) || 0,
+            photo: currentPartnerImageBase64,
             justificatifs: partnerJustify.value,
-            valide: false,
-            created_at: new Date()
+            date: new Date().toLocaleString(),
+            valide: false
         };
         
-        const { error } = await supabase.from('partenaires').insert([requestData]);
-        if (error) showToast("Erreur: " + error.message);
-        else {
+        // Sauvegarde dans Supabase
+        const { error } = await supabase.from('partenaires').insert([{
+            nom: requestData.nom,
+            email: requestData.email,
+            telephone: requestData.telephone,
+            ville: requestData.ville,
+            type: requestData.serviceType,
+            description: requestData.detail,
+            justificatifs: requestData.justificatifs,
+            photo: requestData.photo,
+            valide: false,
+            created_at: new Date()
+        }]);
+        
+        if (error) {
+            showToast("Erreur: " + error.message);
+        } else {
             showToast("✅ Demande envoyée ! L'équipe HOLDEST vous répondra sous 48h.");
             resetPartnerForm();
             closeModal('partenaireModal');
         }
     }
     
+    // Écouteurs pour mise à jour récapitulatif
     partnerFullname.addEventListener('input', updatePartnerRecap);
     partnerEmail.addEventListener('input', updatePartnerRecap);
     partnerPhone.addEventListener('input', updatePartnerRecap);
-    partnerMobileMoney.addEventListener('input', updatePartnerRecap);
     partnerCity.addEventListener('input', updatePartnerRecap);
     partnerServiceType.addEventListener('change', updatePartnerRecap);
     partnerDescription.addEventListener('input', updatePartnerRecap);
     partnerPriceEur.addEventListener('input', updatePartnerRecap);
     partnerPriceAr.addEventListener('input', updatePartnerRecap);
+    partnerWeekEur.addEventListener('input', updatePartnerRecap);
+    partnerWeekAr.addEventListener('input', updatePartnerRecap);
     partnerJustify.addEventListener('input', updatePartnerRecap);
     
     document.getElementById('negotiatePartnerBtn')?.addEventListener('click', negotiatePartnerPrice);
@@ -1787,9 +1608,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         submitPartnerRequest();
     });
     
-    document.getElementById('rootsDevisForm')?.addEventListener('submit', async (e) => { e.preventDefault(); const payload = { nom: document.getElementById('rootsNom').value, email: document.getElementById('rootsEmail').value, telephone: document.getElementById('rootsTel').value, destination: document.getElementById('rootsDestination').value, duree: parseInt(document.getElementById('rootsDuree').value), message: document.getElementById('rootsMessage').value, formule: 'roots', status: 'recu', created_at: new Date() }; const { error } = await supabase.from('devis').insert([payload]); if (error) showToast("Erreur: "+error.message); else { showToast("✅ Demande Roots envoyée !"); closeModal('rootsDevisModal'); e.target.reset(); } });
+    document.getElementById('rootsDevisForm')?.addEventListener('submit', async (e) => { e.preventDefault(); const payload = { nom: document.getElementById('rootsNom').value, email: document.getElementById('rootsEmail').value, telephone: document.getElementById('rootsTel').value, destination: document.getElementById('rootsDestination').value, duree: parseInt(document.getElementById('rootsDuree').value), message: document.getElementById('rootsMessage').value, formule: 'roots', status: 'en_attente', created_at: new Date() }; const { error } = await supabase.from('devis').insert([payload]); if (error) showToast("Erreur: "+error.message); else { showToast("✅ Demande Roots envoyée !"); closeModal('rootsDevisModal'); e.target.reset(); } });
 
-    // ==================== CALCUL BUDGET (suppression solde sur place) ====================
+    // ==================== FONCTIONS MÉTIER (budget, etc.) ====================
     function calculateBudget(days, formula, location) {
         const basePrices = { confort: { guide: 28, transport: 22, hebergement: 25, repas: 12, activites: 15 }, premium: { guide: 38, transport: 35, hebergement: 40, repas: 20, activites: 22 }, luxe: { guide: 55, transport: 55, hebergement: 65, repas: 30, activites: 28 } };
         let p = { ...basePrices[formula] };
@@ -1817,29 +1638,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         let total = items.reduce((s, i) => s + i.eur, 0);
         let reduction = currentUser ? Math.round(total * 0.05) : 0;
         total -= reduction;
-        // Plus de frais dossier ni acompte : tout est payé en ligne
-        const montantTotal = total;
-        return { items, total: montantTotal, reduction };
+        const fraisDossier = 30;
+        const acompteReservation = Math.round((total - fraisDossier) * 0.3);
+        const acompteTotal = fraisDossier + acompteReservation;
+        const solde = total - acompteTotal;
+        return { items, total, reduction, fraisDossier, acompteReservation, acompteTotal, solde };
     }
-    
     function updateBudgetDisplay() {
         const db = document.querySelector('#durationSelector button.active'), fb = document.querySelector('#formulaSelector button.active'), lb = document.querySelector('#locationSelector button.active');
         if (!db || !fb || !lb) return;
         const days = parseInt(db.dataset.days), formula = fb.dataset.formula, location = lb.dataset.loc;
-        const { items, total, reduction } = calculateBudget(days, formula, location);
-        const headerLabels = { fr: { poste: "Poste (par voyageur)", eur: "€", ar: "Ariary", total: "TOTAL", reduction: "Réduction 5%" }, en: { poste: "Item (per traveler)", eur: "€", ar: "Ariary", total: "TOTAL", reduction: "5% discount" }, it: { poste: "Voce (per viaggiatore)", eur: "€", ar: "Ariary", total: "TOTALE", reduction: "Sconto 5%" } };
+        const { items, total, reduction, fraisDossier, acompteReservation, acompteTotal, solde } = calculateBudget(days, formula, location);
+        const headerLabels = { fr: { poste: "Poste (par voyageur)", eur: "€", ar: "Ariary", total: "TOTAL", dossier: "Frais dossier", acompte: "Acompte 30%", enLigne: "À payer en ligne", solde: "Solde sur place", reduction: "Réduction 5%" }, en: { poste: "Item (per traveler)", eur: "€", ar: "Ariary", total: "TOTAL", dossier: "Dossier fee", acompte: "Deposit 30%", enLigne: "To pay online", solde: "Balance on site", reduction: "5% discount" }, it: { poste: "Voce (per viaggiatore)", eur: "€", ar: "Ariary", total: "TOTALE", dossier: "Tassa pratica", acompte: "Acconto 30%", enLigne: "Da pagare online", solde: "Saldo sul posto", reduction: "Sconto 5%" } };
         const lab = headerLabels[currentLang] || headerLabels.fr;
         let html = `<div class="row header-row"><span>${lab.poste}</span><span>${lab.eur}</span><span>${lab.ar}</span></div>`;
         items.forEach(i => html += `<div class="row"><span>${i.label[currentLang] || i.label.fr}</span><span class="price-eur">${Math.round(i.eur)}€</span><span class="price-ar">${Math.round(i.eur * currentExchangeRate).toLocaleString()} Ar</span></div>`);
         if (reduction > 0) html += `<div class="row" style="color:#27ae60;"><span>✅ ${lab.reduction}</span><span>-${reduction}€</span><span>-${Math.round(reduction * currentExchangeRate).toLocaleString()} Ar</span></div>`;
         html += `<div class="row total"><span>💰 ${lab.total}</span><span>${Math.round(total)}€</span><span>${Math.round(total * currentExchangeRate).toLocaleString()} Ar</span></div>`;
-        html += `<div class="row" style="background:#e8f0fe; font-weight:700;"><span>💳 Paiement en ligne 100%</span><span>${Math.round(total)}€</span><span>${Math.round(total * currentExchangeRate).toLocaleString()} Ar</span></div>`;
+        html += `<div class="row dossier"><span>📋 ${lab.dossier}</span><span>${fraisDossier}€</span><span>${Math.round(fraisDossier * currentExchangeRate).toLocaleString()} Ar</span></div>`;
+        html += `<div class="row acompte"><span>🔒 ${lab.acompte}</span><span>${acompteReservation}€</span><span>${Math.round(acompteReservation * currentExchangeRate).toLocaleString()} Ar</span></div>`;
+        html += `<div class="row" style="background:#fff3e0; font-weight:700;"><span>💳 ${lab.enLigne}</span><span>${acompteTotal}€</span><span>${Math.round(acompteTotal * currentExchangeRate).toLocaleString()} Ar</span></div>`;
+        html += `<div class="row"><span>💵 ${lab.solde}</span><span>${Math.round(solde)}€</span><span>${Math.round(solde * currentExchangeRate).toLocaleString()} Ar</span></div>`;
         document.getElementById("budgetTable").innerHTML = html;
         document.getElementById("reductionMsg").innerHTML = currentUser ? `<span class="reduction-badge">-5%</span> Appliquée !` : `<a href="#" onclick="openModal('registerModal'); return false;">🔒 Compte HOLDEST = -5%</a>`;
         document.getElementById('managerCommission').innerText = `${Math.round(total * 0.1)}€`;
     }
-    
-    function updateRootsBudgetDisplay() { /* inchangé mais avec suppression solde sur place si besoin */ 
+    function updateRootsBudgetDisplay() {
         const peopleBtn = document.querySelector('#rootsPeopleSelector button.active');
         let rootsPeople = peopleBtn ? parseInt(peopleBtn.dataset.peopleRoots) : 1;
         if (isNaN(rootsPeople)) rootsPeople = 1;
@@ -1859,99 +1683,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         document.getElementById('rootsRepasPrice').innerHTML = `${Math.round(repasPerDay)}€ x ${days}j = ${Math.round(repasTotal)}€`;
         document.getElementById('rootsActivitesPrice').innerHTML = `${Math.round(activitesPerDay)}€ x ${days}j = ${Math.round(activitesTotal)}€`;
         const totalRounded = Math.round(total);
+        const acompteReservation = Math.round((totalRounded - 30) * 0.3);
+        const acompteTotal = 30 + acompteReservation;
+        const solde = totalRounded - acompteTotal;
         document.getElementById('rootsTotalEuro').innerHTML = `${totalRounded}€ (${Math.round(totalRounded * currentExchangeRate).toLocaleString()} Ar)`;
         document.getElementById('rootsArTotal').innerHTML = Math.round(totalRounded * currentExchangeRate).toLocaleString();
-        // On garde l'affichage mais on indique que tout est en ligne
-        document.getElementById('rootsAcompteReservation').innerHTML = `${Math.round(totalRounded)}€`;
-        document.getElementById('rootsAcompteTotal').innerHTML = `${Math.round(totalRounded)}€`;
-        document.getElementById('rootsSolde').innerHTML = `0€ (payé en ligne)`;
+        document.getElementById('rootsAcompteReservation').innerHTML = `${acompteReservation}€`;
+        document.getElementById('rootsAcompteTotal').innerHTML = `${acompteTotal}€`;
+        document.getElementById('rootsSolde').innerHTML = `${Math.round(solde)}€`;
     }
-
-    // ==================== STRIPE RESERVATION ====================
-    async function handleStripeCheckout() {
-        if (!currentUser) {
-            showToast("Veuillez vous connecter ou créer un compte pour réserver");
-            openModal('loginModal');
-            return;
-        }
-        const db = document.querySelector('#durationSelector button.active');
-        const fb = document.querySelector('#formulaSelector button.active');
-        const lb = document.querySelector('#locationSelector button.active');
-        if (!db || !fb || !lb) {
-            showToast("Veuillez sélectionner une durée, une formule et une destination");
-            return;
-        }
-        const days = parseInt(db.dataset.days);
-        const formula = fb.dataset.formula;
-        const location = lb.dataset.loc;
-        const { total } = calculateBudget(days, formula, location);
-        const montantTotal = Math.round(total);
-        const circuit = circuitsData.find(c => c.key === location);
-        const formuleObj = formulesData.find(f => f.nom === formula);
-        
-        // Appel à votre backend Stripe (à créer)
-        // Pour que ça fonctionne, vous devez avoir un endpoint sur votre serveur qui crée une session Stripe
-        // Exemple d'appel à une fonction supabase edge ou à votre propre API
-        try {
-            const response = await fetch('/create-checkout-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    amount: montantTotal,
-                    currency: 'eur',
-                    client_email: currentUser.email,
-                    client_name: currentUser.user_metadata?.name,
-                    destination: location,
-                    duree: days,
-                    formule: formula,
-                    circuit_id: circuit?.id_circuit,
-                    formule_id: formuleObj?.id_formule
-                })
-            });
-            const session = await response.json();
-            if (session.id) {
-                await stripe.redirectToCheckout({ sessionId: session.id });
-            } else {
-                showToast("Erreur lors de la création de la session de paiement");
-            }
-        } catch (err) {
-            showToast("Erreur: " + err.message);
-        }
-    }
-    
-    document.getElementById('stripeCheckoutBtn')?.addEventListener('click', handleStripeCheckout);
 
     // ==================== RENDU DES COMPOSANTS ====================
-    function renderDestinations() { document.getElementById("destinationsGrid").innerHTML = destinationsData.map(d => `<div class="card" onclick="showProgramme('${d.key}')"><div class="card-img" style="background-image:url('${d.image}');" onclick="event.stopPropagation(); openLightbox('${d.image}')"><span class="overlay-badge">${d.badge}</span></div><div class="card-content"><h3>${d.name} <span class="id-badge">${d.id_circuit}</span></h3><p>${d.desc[currentLang] || d.desc.fr}</p><div class="card-meta"><span><i class="fas fa-cloud-sun"></i> ${d.meteo[currentLang] || d.meteo.fr}</span><span><i class="fas fa-clock"></i> ${d.duree[currentLang] || d.duree.fr}</span></div><p style="font-size:0.8rem;"><i class="fas fa-star-of-life"></i> ${d.activites[currentLang] || d.activites.fr}</p><button class="reserve-btn">📅 Voir programme</button></div></div>`).join(''); }
-    function renderServices() { document.getElementById("servicesGrid").innerHTML = servicesData.map(s => `<div class="card" onclick="showFormuleDetail('${s.formula}')"><div class="card-content" style="text-align:center;padding:28px;"><span class="overlay-badge" style="position:static;">${s.badge}</span><h3>${s.name[currentLang] || s.name.fr} <span class="id-badge">${s.id_formule}</span></h3><p>${s.desc[currentLang] || s.desc.fr}</p><button class="reserve-btn">🔍 Voir le détail</button></div></div>`).join(''); }
+    function renderDestinations() { document.getElementById("destinationsGrid").innerHTML = destinationsData.map(d => `<div class="card" onclick="showProgramme('${d.key}')"><div class="card-img" style="background-image:url('${d.image}');" onclick="event.stopPropagation(); openLightbox('${d.image}')"><span class="overlay-badge">${d.badge}</span></div><div class="card-content"><h3>${d.name}</h3><p>${d.desc[currentLang] || d.desc.fr}</p><div class="card-meta"><span><i class="fas fa-cloud-sun"></i> ${d.meteo[currentLang] || d.meteo.fr}</span><span><i class="fas fa-clock"></i> ${d.duree[currentLang] || d.duree.fr}</span></div><p style="font-size:0.8rem;"><i class="fas fa-star-of-life"></i> ${d.activites[currentLang] || d.activites.fr}</p><button class="reserve-btn">📅 Voir programme</button></div></div>`).join(''); }
+    function renderServices() { document.getElementById("servicesGrid").innerHTML = servicesData.map(s => `<div class="card" onclick="showFormuleDetail('${s.formula}')"><div class="card-content" style="text-align:center;padding:28px;"><span class="overlay-badge" style="position:static;">${s.badge}</span><h3>${s.name[currentLang] || s.name.fr}</h3><p>${s.desc[currentLang] || s.desc.fr}</p><button class="reserve-btn">🔍 Voir le détail</button></div></div>`).join(''); }
     function renderSortiesAccueil() { document.getElementById("sortiesAccueilGrid").innerHTML = Object.keys(sortiesDetailData).map(key => { const s = sortiesDetailData[key]; return `<div class="card" onclick="showSortieDetail('${key}')"><div class="card-content"><h3>${s.title[currentLang] || s.title.fr}</h3><p>${(s.desc[currentLang] || s.desc.fr).substring(0, 80)}...</p><p style="font-size:0.8rem;"><i class="fas fa-map-marker-alt"></i> ${s.lieux.length} lieux</p><button class="reserve-btn">🔍 Voir les sorties</button></div></div>`; }).join(''); }
     function renderSortiesBBQ() { document.getElementById("sortiesDetailContainer").innerHTML = Object.keys(sortiesDetailData).map(key => { const s = sortiesDetailData[key]; return `<div class="sortie-detail-box"><h4>${s.title[currentLang] || s.title.fr}</h4><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:12px;">${s.desc[currentLang] || s.desc.fr}</p>${s.lieux.map(l => `<div style="background:#f9fdf9; border-radius:12px; padding:12px; margin-bottom:8px; border-left:4px solid var(--primary);"><strong>${l.nom}</strong> <span style="background:var(--primary); color:white; padding:2px 8px; border-radius:10px; font-size:0.7rem;">${l.type[currentLang] || l.type.fr}</span><p style="font-size:0.8rem; margin-top:4px;">${l.desc[currentLang] || l.desc.fr}</p><p style="font-size:0.7rem; color:var(--text-soft);"><i class="far fa-clock"></i> ${l.horaires}</p><div style="font-size:0.75rem; color:var(--primary-dark); margin-top:4px;">💰 ${l.prix}</div><div style="font-size:0.7rem; background:#fff3e0; padding:4px 8px; border-radius:8px; margin-top:6px;"><i class="fas fa-lightbulb"></i> ${l.conseil[currentLang] || l.conseil.fr}</div></div>`).join('')}</div>`; }).join(''); }
-    function renderPartners() { 
-        const staticPartners = [
-            { name: "Tsiky Trans", type: { fr: "Location 4x4", en: "4x4 Rental", it: "Noleggio 4x4" }, desc: { fr: "Flotte de Toyota Hilux récents, conducteurs expérimentés.", en: "Fleet of recent Toyota Hilux, experienced drivers.", it: "Flotta di Toyota Hilux recenti, autisti esperti." }, contact: "+261 34 12 345 67", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" }
-        ];
-        document.getElementById("partnersGrid").innerHTML = staticPartners.map(p => `<div class="partner-card"><img class="partner-img" src="${p.image}" alt="${p.name}" onclick="openLightbox('${p.image}')"><div class="partner-header"><h4><i class="fas fa-handshake"></i> ${p.name} <span class="partner-type">${p.type[currentLang] || p.type.fr}</span></h4></div><div class="partner-content"><p>${p.desc[currentLang] || p.desc.fr}</p><div class="partner-contact"><i class="fas fa-phone-alt"></i> ${p.contact}</div><button class="reserve-btn">Réserver via HOLDEST</button></div></div>`).join(''); 
-    }
+    function renderPartners() { document.getElementById("partnersGrid").innerHTML = partnersData.map(p => `<div class="partner-card"><img class="partner-img" src="${p.image}" alt="${p.name}" onclick="openLightbox('${p.image}')"><div class="partner-header"><h4><i class="fas fa-handshake"></i> ${p.name} <span class="partner-type">${p.type[currentLang] || p.type.fr}</span></h4></div><div class="partner-content"><p>${p.desc[currentLang] || p.desc.fr}</p><div class="partner-contact"><i class="fas fa-phone-alt"></i> ${p.contact}</div><button class="reserve-btn">Réserver via HOLDEST</button></div></div>`).join(''); }
     function renderTestimonials() { document.getElementById("testimonialsContainer").innerHTML = testimonialsData.map(t => `<div class="testimonial-card"><div class="stars">${'★'.repeat(t.stars)}</div><p>« ${t.text[currentLang] || t.text.fr} »</p><div style="margin-top:8px; font-weight:600;">— ${t.author} <span style="font-size:0.7rem; color:var(--text-soft);">(${t.source})</span></div></div>`).join(''); }
     function renderFAQ() { document.getElementById("faqGrid").innerHTML = faqData.map(f => `<div class="faq-card" onclick="this.classList.toggle('open')"><h4>❓ ${f.q[currentLang] || f.q.fr}</h4><p>${f.a[currentLang] || f.a.fr}</p></div>`).join(''); }
     function renderGallery() { document.getElementById('galleryGrid').innerHTML = galleryImages.map(img => `<div class="gallery-item" onclick="openLightbox('${img.src}')"><img src="${img.src}" alt="${img.title}" loading="lazy"><div class="gallery-overlay">${img.title}</div></div>`).join(''); }
-    async function renderPartenairesList() { 
-        const { data, error } = await supabase.from('partenaires').select('*').eq('valide', true); 
-        if (error) { console.error(error); document.getElementById('partenairesList').innerHTML = '<p>Erreur chargement partenaires</p>'; return; }
-        document.getElementById('partenairesList').innerHTML = data?.length ? data.map(p => `<div class="partenaire-card"><h4><i class="fas fa-building"></i> ${p.nom} <span class="partenaire-type">${p.type}</span></h4><p><strong>📍 ${p.ville}</strong></p><p>${p.description.substring(0,150)}${p.description.length>150?'...':''}</p><div class="partenaire-contact"><i class="fas fa-phone-alt"></i> ${p.telephone} | <i class="fas fa-envelope"></i> ${p.email} | <i class="fas fa-mobile-alt"></i> ${p.mobile_money}</div>${p.photo ? `<img src="${p.photo}" style="max-width:100%; border-radius:12px; margin-top:8px; cursor:zoom-in;" onclick="openLightbox('${p.photo}')">` : ''}<button class="reserve-btn" style="margin-top:12px;" onclick="window.location.href='mailto:${p.email}'">Contacter</button></div>`).join('') : '<p>Aucun partenaire validé pour le moment</p>'; 
-    }
+    async function renderPartenairesList() { const { data } = await supabase.from('partenaires').select('*').eq('valide', true); document.getElementById('partenairesList').innerHTML = data?.length ? data.map(p => `<div class="partenaire-card"><h4><i class="fas fa-building"></i> ${p.nom} <span class="partenaire-type">${p.type}</span></h4><p><strong>📍 ${p.ville}</strong></p><p>${p.description.substring(0,150)}${p.description.length>150?'...':''}</p><div class="partenaire-contact"><i class="fas fa-phone-alt"></i> ${p.telephone} | <i class="fas fa-envelope"></i> ${p.email}</div>${p.photo ? `<img src="${p.photo}" style="max-width:100%; border-radius:12px; margin-top:8px; cursor:zoom-in;" onclick="openLightbox('${p.photo}')">` : ''}<button class="reserve-btn" style="margin-top:12px;" onclick="window.location.href='mailto:${p.email}'">Contacter</button></div>`).join('') : '<p>Aucun partenaire validé pour le moment</p>'; }
     function renderHikes() { document.getElementById("hikesGrid").innerHTML = hikesData.map(h => `<div class="hike-card"><img src="${h.image}" alt="${h.name.fr}" onclick="openLightbox('${h.image}')"><div class="hike-content"><h3>${h.name[currentLang] || h.name.fr}</h3><p>${h.desc[currentLang] || h.desc.fr}</p><p><i class="far fa-clock"></i> ${h.duration} &nbsp;|&nbsp; <i class="fas fa-tag"></i> ${h.price}</p><button class="reserve-btn" onclick="openModal('devisModal')">Demander ce circuit</button></div></div>`).join(''); }
-    function updateTransportDisplay(loc) { 
-        const transportDetailsData = {
-            tana: [{ title: { fr: "🛬 Ivato → Centre-ville", en: "🛬 Ivato → City Center", it: "🛬 Ivato → Centro città" }, desc: { fr: "Transfert privé 4x4.", en: "Private 4x4 transfer.", it: "Trasferimento privato 4x4." }, prix: "40 000 Ar (8€)", roots: "Taxi-brousse : 5 000 Ar" }],
-            majunga: [{ title: { fr: "🛬 Aéroport → Ville", en: "🛬 Airport → City", it: "🛬 Aeroporto → Città" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "25 000 Ar (5€)", roots: "Taxi : 5 000 Ar" }],
-            nosybe: [{ title: { fr: "🛬 Fascene → Hell-Ville", en: "🛬 Fascene → Hell-Ville", it: "🛬 Fascene → Hell-Ville" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "35 000 Ar (7€)", roots: "Taxi : 5 000 Ar" }],
-            diego: [{ title: { fr: "🛬 Aéroport → Centre", en: "🛬 Airport → Center", it: "🛬 Aeroporto → Centro" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "25 000 Ar (5€)", roots: "Taxi : 5 000 Ar" }],
-            tamatave: [{ title: { fr: "🛬 Aéroport → Centre", en: "🛬 Airport → Center", it: "🛬 Aeroporto → Centro" }, desc: { fr: "Transfert privé.", en: "Private transfer.", it: "Trasferimento privato." }, prix: "20 000 Ar (4€)", roots: "Taxi : 3 000 Ar" }]
-        };
-        const data = transportDetailsData[loc] || transportDetailsData.tana; 
-        document.getElementById('transportDetailsGrid').innerHTML = data.map(t => `<div class="card"><div class="card-content"><h3>${t.title[currentLang] || t.title.fr}</h3><p>${t.desc[currentLang] || t.desc.fr}</p><p><strong>🌟</strong> ${t.prix}</p><p style="color:var(--primary);"><strong>🌿 Roots :</strong> ${t.roots}</p><button class="reserve-btn">Réserver</button></div></div>`).join(''); 
-    }
+    function updateTransportDisplay(loc) { const data = transportDetailsData[loc] || transportDetailsData.tana; document.getElementById('transportDetailsGrid').innerHTML = data.map(t => `<div class="card"><div class="card-content"><h3>${t.title[currentLang] || t.title.fr}</h3><p>${t.desc[currentLang] || t.desc.fr}</p><p><strong>🌟</strong> ${t.prix}</p><p style="color:var(--primary);"><strong>🌿 Roots :</strong> ${t.roots}</p><button class="reserve-btn">Réserver</button></div></div>`).join(''); }
     function updateMeteoWidget() { const mois = document.getElementById('moisMeteo').value; document.getElementById('meteoWidgetInfo').innerHTML = meteoData[mois] || "🌞 Bonne période pour voyager"; }
     function convertCurrencyWidget() { const euros = document.getElementById('eurosConverter')?.value || 0; document.getElementById('convertWidgetResult').innerHTML = Math.round(euros * currentExchangeRate).toLocaleString() + ' Ariary'; document.getElementById('dynamicRateWidget').innerHTML = currentExchangeRate; }
     function initChart() { const ctx = document.getElementById('affluenceChart')?.getContext('2d'); if(ctx && affluenceChart) affluenceChart.destroy(); if(ctx) affluenceChart = new Chart(ctx, { type: 'line', data: { labels: ['J','F','M','A','M','J','J','A','S','O','N','D'], datasets: [{ label: 'Affluence', data: [30,25,35,55,70,85,90,88,75,65,45,35], borderColor: '#c85a17', tension: 0.4 }] } }); }
@@ -1964,9 +1717,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function toggleExtra(el, name, price) { el.classList.toggle('selected'); if (el.classList.contains('selected')) selectedExtras.push({ name, price }); else selectedExtras = selectedExtras.filter(e => e.name !== name); updateBudgetDisplay(); }
     function showSecuriteModal() { document.getElementById('securiteContent').innerHTML = `<h3><i class="fas fa-first-aid" style="color:#2980b9;"></i> 🛡️ ${currentLang === 'fr' ? 'Sécurité & Santé' : currentLang === 'en' ? 'Safety & Health' : 'Sicurezza & Salute'}</h3><p style="margin-bottom:16px;"><strong>${currentLang === 'fr' ? 'Tous les guides HOLDEST × Junga Tour sont formés aux gestes qui sauvent.' : currentLang === 'en' ? 'All HOLDEST × Junga Tour guides are trained in first aid.' : 'Tutte le guide HOLDEST × Junga Tour sono formate al primo soccorso.'}</strong></p><div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px;"><div style="background:#f0f8ff; padding:10px; border-radius:12px; text-align:center;"><i class="fas fa-heartbeat" style="color:#e74c3c; font-size:1.5rem; display:block; margin-bottom:4px;"></i>${currentLang === 'fr' ? 'Massage cardiaque (RCP)' : currentLang === 'en' ? 'Cardiac massage (CPR)' : 'Massaggio cardiaco (RCP)'}</div><div style="background:#f0f8ff; padding:10px; border-radius:12px; text-align:center;"><i class="fas fa-bed" style="color:#2980b9; font-size:1.5rem; display:block; margin-bottom:4px;"></i>${currentLang === 'fr' ? 'Position latérale de sécurité' : currentLang === 'en' ? 'Recovery position' : 'Posizione laterale di sicurezza'}</div><div style="background:#f0f8ff; padding:10px; border-radius:12px; text-align:center;"><i class="fas fa-band-aid" style="color:#27ae60; font-size:1.5rem; display:block; margin-bottom:4px;"></i>${currentLang === 'fr' ? 'Soins des plaies' : currentLang === 'en' ? 'Wound care' : 'Cura delle ferite'}</div><div style="background:#f0f8ff; padding:10px; border-radius:12px; text-align:center;"><i class="fas fa-lungs" style="color:#e74c3c; font-size:1.5rem; display:block; margin-bottom:4px;"></i>${currentLang === 'fr' ? 'Gestion étouffement' : currentLang === 'en' ? 'Choking management' : 'Gestione soffocamento'}</div><div style="background:#f0f8ff; padding:10px; border-radius:12px; text-align:center;"><i class="fas fa-bone" style="color:#f39c12; font-size:1.5rem; display:block; margin-bottom:4px;"></i>${currentLang === 'fr' ? 'Fractures & brûlures' : currentLang === 'en' ? 'Fractures & burns' : 'Fratture & ustioni'}</div><div style="background:#f0f8ff; padding:10px; border-radius:12px; text-align:center;"><i class="fas fa-bug" style="color:#27ae60; font-size:1.5rem; display:block; margin-bottom:4px;"></i>${currentLang === 'fr' ? 'Piqûres & morsures' : currentLang === 'en' ? 'Stings & bites' : 'Punture & morsi'}</div></div><p style="font-size:0.9rem; margin-bottom:12px;"><i class="fas fa-medkit" style="color:#e74c3c;"></i> <strong>${currentLang === 'fr' ? 'Trousse de secours complète' : currentLang === 'en' ? 'Complete first aid kit' : 'Kit di pronto soccorso completo'}</strong> ${currentLang === 'fr' ? 'dans chaque véhicule' : currentLang === 'en' ? 'in every vehicle' : 'in ogni veicolo'}.</p><p style="font-size:0.9rem; margin-bottom:12px;"><i class="fas fa-hospital" style="color:#2980b9;"></i> <strong>${currentLang === 'fr' ? 'Connaissance des hôpitaux et cliniques' : currentLang === 'en' ? 'Knowledge of hospitals and clinics' : 'Conoscenza degli ospedali e cliniche'}</strong> ${currentLang === 'fr' ? 'de chaque région' : currentLang === 'en' ? 'in each region' : 'di ogni regione'}.</p><button class="btn-full" style="background:#ddd;" onclick="closeModal('securiteModal')">${currentLang === 'fr' ? 'Fermer' : currentLang === 'en' ? 'Close' : 'Chiudi'}</button>`; openModal('securiteModal'); }
     function showRetardModal() { document.getElementById('retardContent').innerHTML = `<h3><i class="fas fa-clock" style="color:#f0c040;"></i> ⏰ ${currentLang === 'fr' ? 'Vol retardé ? Pas de panique !' : currentLang === 'en' ? 'Flight Delayed? Don\'t Panic!' : 'Volo in ritardo? Niente panico!'}</h3><p style="font-size:1.1rem; margin-bottom:16px;"><strong>${currentLang === 'fr' ? 'L\'attente est TOTALEMENT GRATUITE.' : currentLang === 'en' ? 'Waiting is TOTALLY FREE.' : 'L\'attesa è TOTALMENTE GRATUITA.'}</strong></p><p style="margin-bottom:12px;">${currentLang === 'fr' ? 'Randria suit votre vol en temps réel. Si votre avion a du retard, il vous attendra <strong>sans aucun frais supplémentaire</strong>, quelle que soit l\'heure d\'arrivée.' : currentLang === 'en' ? 'Randria tracks your flight in real time. If your plane is delayed, he will wait for you <strong>without any additional cost</strong>, regardless of the arrival time.' : 'Randria segue il tuo volo in tempo reale. Se il tuo aereo è in ritardo, ti aspetterà <strong>senza alcun costo aggiuntivo</strong>, indipendentemente dall\'ora di arrivo.'}</p><div style="background:#fff9e6; padding:14px; border-radius:12px; margin-bottom:12px;"><p><i class="fas fa-check" style="color:#27ae60;"></i> <strong>${currentLang === 'fr' ? 'Suivi de vol en direct' : currentLang === 'en' ? 'Live flight tracking' : 'Monitoraggio volo in diretta'}</strong></p><p><i class="fas fa-check" style="color:#27ae60;"></i> <strong>${currentLang === 'fr' ? 'Aucun supplément' : currentLang === 'en' ? 'No extra charge' : 'Nessun supplemento'}</strong> ${currentLang === 'fr' ? 'pour le retard' : currentLang === 'en' ? 'for the delay' : 'per il ritardo'}</p><p><i class="fas fa-check" style="color:#27ae60;"></i> <strong>${currentLang === 'fr' ? 'Panneau à votre nom' : currentLang === 'en' ? 'Name sign for you' : 'Cartello con il tuo nome'}</strong> ${currentLang === 'fr' ? 'quoi qu\'il arrive' : currentLang === 'en' ? 'no matter what' : 'qualunque cosa accada'}</p></div><button class="btn-full" style="background:#ddd;" onclick="closeModal('retardModal')">${currentLang === 'fr' ? 'Fermer' : currentLang === 'en' ? 'Close' : 'Chiudi'}</button>`; openModal('retardModal'); }
-    function showFormuleDetail(formula) { const f = formulesDetailData[formula]; if (!f) return; const t = (obj) => typeof obj === 'object' ? (obj[currentLang] || obj.fr) : obj; document.getElementById('formuleDetailContent').innerHTML = `<div style="text-align:center; margin-bottom:16px;"><img src="${f.image}" style="width:100%; height:auto; object-fit:contain; border-radius:16px; margin-bottom:12px; cursor:zoom-in;" onclick="openLightbox('${f.image}')" alt="${t(f.titre)}"><h3>${t(f.titre)} <span class="id-badge">${f.id_formule}</span></h3><p style="color:var(--primary-dark); font-weight:600;">${t(f.slogan)}</p></div><p style="font-size:0.9rem; margin-bottom:16px;">${t(f.description)}</p>${f.details.map(d => `<div style="display:flex; justify-content:space-between; padding:12px; background:#f9fdf9; border-radius:12px; margin-bottom:8px;"><div><strong>${t(d.label)}</strong><br><small style="color:var(--text-soft);">${t(d.desc)}</small></div><div style="font-weight:700; color:var(--primary-dark);">${d.valeur}</div></div>`).join('')}<div style="text-align:center; margin-top:16px; padding:12px; background:var(--green); color:white; border-radius:16px; font-weight:700;">${currentLang === 'fr' ? 'Total estimé' : currentLang === 'en' ? 'Estimated total' : 'Totale stimato'} : ${f.total}</div><button class="btn-full" style="background:#ddd; margin-top:8px;" onclick="closeModal('formuleDetailModal')">${currentLang === 'fr' ? 'Fermer' : currentLang === 'en' ? 'Close' : 'Chiudi'}</button>`; openModal('formuleDetailModal'); }
+    function showFormuleDetail(formula) { const f = formulesDetailData[formula]; if (!f) return; const t = (obj) => typeof obj === 'object' ? (obj[currentLang] || obj.fr) : obj; document.getElementById('formuleDetailContent').innerHTML = `<div style="text-align:center; margin-bottom:16px;"><img src="${f.image}" style="width:100%; height:auto; object-fit:contain; border-radius:16px; margin-bottom:12px; cursor:zoom-in;" onclick="openLightbox('${f.image}')" alt="${t(f.titre)}"><h3>${t(f.titre)}</h3><p style="color:var(--primary-dark); font-weight:600;">${t(f.slogan)}</p></div><p style="font-size:0.9rem; margin-bottom:16px;">${t(f.description)}</p>${f.details.map(d => `<div style="display:flex; justify-content:space-between; padding:12px; background:#f9fdf9; border-radius:12px; margin-bottom:8px;"><div><strong>${t(d.label)}</strong><br><small style="color:var(--text-soft);">${t(d.desc)}</small></div><div style="font-weight:700; color:var(--primary-dark);">${d.valeur}</div></div>`).join('')}<div style="text-align:center; margin-top:16px; padding:12px; background:var(--green); color:white; border-radius:16px; font-weight:700;">${currentLang === 'fr' ? 'Total estimé' : currentLang === 'en' ? 'Estimated total' : 'Totale stimato'} : ${f.total}</div><button class="btn-full" style="background:#ddd; margin-top:8px;" onclick="closeModal('formuleDetailModal')">${currentLang === 'fr' ? 'Fermer' : currentLang === 'en' ? 'Close' : 'Chiudi'}</button>`; openModal('formuleDetailModal'); }
     function showSortieDetail(cityKey) { const s = sortiesDetailData[cityKey]; if (!s) return; const t = (obj) => typeof obj === 'object' ? (obj[currentLang] || obj.fr) : obj; let html = `<div style="text-align:center; margin-bottom:16px;"><h3>${t(s.title)}</h3><p style="color:var(--text-soft);">${t(s.desc)}</p></div>`; s.lieux.forEach(l => { html += `<div class="sortie-lieu-card"><span class="lieu-type">${t(l.type)}</span><h5>${l.nom}</h5><p>${t(l.desc)}</p><div class="lieu-horaire"><i class="far fa-clock"></i> ${l.horaires}</div><div class="lieu-prix">💰 ${l.prix}</div><div class="lieu-conseil"><i class="fas fa-lightbulb"></i> 💡 ${t(l.conseil)}</div></div>`; }); html += `<button class="btn-full" style="background:#ddd; margin-top:8px;" onclick="closeModal('sortieDetailModal')">${currentLang === 'fr' ? 'Fermer' : currentLang === 'en' ? 'Close' : 'Chiudi'}</button>`; document.getElementById('sortieDetailContent').innerHTML = html; openModal('sortieDetailModal'); }
-    function showProgramme(cityKey) { const prog = programmesData[cityKey] || programmesData.tana; const circuit = circuitsData.find(c => c.key === cityKey); let msg = `🗓️ Programme HOLDEST × Junga Tour :\n\n`; if (circuit) msg += `ID Circuit: ${circuit.id_circuit}\n\n`; prog.forEach(j => { msg += `Jour ${j.jour} : ${j[currentLang] || j.fr}\n\n`; }); msg += `\n✨ Randria vous attend !`; alert(msg); }
+    function showProgramme(cityKey) { const prog = programmesData[cityKey] || programmesData.tana; let msg = `🗓️ Programme HOLDEST × Junga Tour :\n\n`; prog.forEach(j => { msg += `Jour ${j.jour} : ${j[currentLang] || j.fr}\n\n`; }); msg += `\n✨ Randria vous attend !`; alert(msg); }
 
     // ==================== NAVIGATION ====================
     const screens = { home: document.getElementById('homeScreen'), budget: document.getElementById('budgetScreen'), bbq: document.getElementById('bbqScreen'), transport: document.getElementById('transportScreen'), explore: document.getElementById('exploreScreen') };
@@ -1987,10 +1740,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     // ==================== INITIALISATION ====================
     async function fetchExchangeRate() { try { const res = await fetch('https://api.exchangerate-api.com/v4/latest/EUR'); const data = await res.json(); if(data.rates?.MGA) { currentExchangeRate = Math.round(data.rates.MGA); document.getElementById('ariaryRate').innerHTML = `1€ ≈ ${currentExchangeRate.toLocaleString()} Ar`; document.getElementById('dynamicRate').innerHTML = currentExchangeRate.toLocaleString(); updateBudgetDisplay(); updateRootsBudgetDisplay(); convertCurrencyWidget(); } } catch(e) { document.getElementById('ariaryRate').innerHTML = `1€ ≈ 5000 Ar (taux par défaut)`; } }
 
+    // Expositions globales
     window.openLightbox = openLightbox; window.closeLightbox = closeLightbox; window.toggleDarkMode = toggleDarkMode; window.changeLanguage = changeLanguage;
     window.openModal = openModal; window.closeModal = closeModal; window.openRootsInterface = openRootsInterface; window.closeRootsInterface = closeRootsInterface;
     window.openRootsDevisModal = openRootsDevisModal; window.openDevisModal = openDevisModal; window.registerSupabase = registerSupabase; window.loginSupabase = loginSupabase; window.logoutSupabase = logoutSupabase;
-    window.closeAdminPanel = closeAdminPanel; window.toggleAdminPanel = toggleAdminPanel; window.copyManagerCode = copyManagerCode; window.showUserProfile = showUserProfile; window.activateScreen = activateScreen;
+    window.toggleAdminPanel = toggleAdminPanel; window.copyManagerCode = copyManagerCode; window.showUserProfile = showUserProfile; window.activateScreen = activateScreen;
     window.updateMeteoWidget = updateMeteoWidget; window.convertCurrencyWidget = convertCurrencyWidget; window.showSecuriteModal = showSecuriteModal; window.showRetardModal = showRetardModal;
     window.showFormuleDetail = showFormuleDetail; window.showSortieDetail = showSortieDetail; window.showProgramme = showProgramme; window.toggleExtra = toggleExtra;
     window.resetPartnerForm = resetPartnerForm;
@@ -2003,7 +1757,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     updateBudgetDisplay(); updateTransportDisplay('tana'); initMap(); initChart(); updateMeteoWidget(); convertCurrencyWidget(); 
     animateCounter('statClients',1240); animateCounter('statCircuits',156); animateCounter('statGuides',28); animateCounter('statDestinations',45); 
     activateScreen('home');
+    
+    // Initialisation récapitulatif partenaire
     updatePartnerRecap();
 </script>
 </body>
-    </html>
+</html>
