@@ -1053,9 +1053,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 <!-- MODALES -->
-<div class="modal-overlay" id="devisModal"><div class="modal-box"><h3>📋 <span data-lang-fr="Demande de devis personnalisé" data-lang-en="Quote Request" data-lang-it="Richiesta Preventivo">Demande de devis personnalisé</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire et Randria vous répondra sous 24h." data-lang-en="Fill out this form and Randria will reply within 24h." data-lang-it="Compila questo modulo e Randria ti risponderà entro 24h.">Remplissez ce formulaire et Randria vous répondra sous 24h.</p><form id="devisForm" action="https://formspree.io/f/votre-endpoint" method="POST"><input type="text" id="devisNom" placeholder="Nom complet *" required><input type="email" id="devisEmail" placeholder="Email *" required><input type="tel" id="devisTel" placeholder="Téléphone (optionnel)"><select id="devisDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="devisDuree" required><option value="">Durée du séjour *</option><option value="2">2 jours</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option><option value="30">1 mois</option></select><select id="devisFormule" required><option value="">Formule souhaitée *</option><option value="confort">⭐ Confort</option><option value="premium">🌟 Premium</option><option value="luxe">👑 Luxe</option><option value="roots">🌿 Roots (Budget Serré)</option></select><textarea id="devisMessage" placeholder="Message ou demande spéciale (optionnel)"></textarea><input type="hidden" name="_subject" value="Nouveau devis HOLDEST"><button type="submit" class="btn-full" style="background:var(--green); color:white;">📩 <span data-lang-fr="Envoyer ma demande" data-lang-en="Send my request" data-lang-it="Invia la mia richiesta">Envoyer ma demande</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('devisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
+<div class="modal-overlay" id="devisModal"><div class="modal-box"><h3>📋 <span data-lang-fr="Demande de devis personnalisé" data-lang-en="Quote Request" data-lang-it="Richiesta Preventivo">Demande de devis personnalisé</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire et Randria vous répondra sous 24h." data-lang-en="Fill out this form and Randria will reply within 24h." data-lang-it="Compila questo modulo e Randria ti risponderà entro 24h.">Remplissez ce formulaire et Randria vous répondra sous 24h.</p><form id="devisForm"><input type="text" id="devisNom" placeholder="Nom complet *" required><input type="email" id="devisEmail" placeholder="Email *" required><input type="tel" id="devisTel" placeholder="Téléphone"><select id="devisDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="devisDuree" required><option value="">Durée du séjour *</option><option value="2">2 jours</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option><option value="30">1 mois</option></select><select id="devisFormule" required><option value="">Formule souhaitée *</option><option value="confort">⭐ Confort</option><option value="premium">🌟 Premium</option><option value="luxe">👑 Luxe</option><option value="roots">🌿 Roots (Budget Serré)</option></select><textarea id="devisMessage" placeholder="Message ou demande spéciale"></textarea><button type="submit" class="btn-full" style="background:var(--green); color:white;">📩 <span data-lang-fr="Envoyer ma demande" data-lang-en="Send my request" data-lang-it="Invia la mia richiesta">Envoyer ma demande</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('devisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
 
-<!-- MODALE PARTENAIRE AMÉLIORÉE (FONCTIONNALITÉ DU DEUXIÈME CODE) -->
+<!-- MODALE PARTENAIRE AMÉLIORÉE -->
 <div class="modal-overlay" id="partenaireModal">
     <div class="modal-box">
         <h3><i class="fas fa-handshake"></i> Devenir partenaire HOLDEST</h3>
@@ -1155,7 +1155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </div>
 
-<div class="modal-overlay" id="rootsDevisModal"><div class="modal-box"><h3>🌿 <span data-lang-fr="Demande de devis - Budget Serré" data-lang-en="Quote Request - Low Budget" data-lang-it="Richiesta Preventivo - Budget Serré">Demande de devis - Budget Serré</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire pour un voyage roots authentique avec Randria." data-lang-en="Fill out this form for an authentic roots trip with Randria." data-lang-it="Compila questo modulo per un viaggio roots autentico con Randria.">Remplissez ce formulaire pour un voyage roots authentique avec Randria.</p><form id="rootsDevisForm" action="https://formspree.io/f/votre-endpoint" method="POST"><input type="text" id="rootsNom" placeholder="Nom complet *" required><input type="email" id="rootsEmail" placeholder="Email *" required><input type="tel" id="rootsTel" placeholder="Téléphone (optionnel)"><select id="rootsDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="rootsDuree" required><option value="">Durée du séjour *</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option></select><select id="rootsType" required><option value="">Type de logement souhaité *</option><option value="chez_habitant">🏠 Chez l'habitant</option><option value="auberge">🛏️ Auberge collective</option><option value="mixte">🔄 Mixte (selon disponibilité)</option></select><textarea id="rootsMessage" placeholder="Vos attentes, questions, ou demande spéciale..."></textarea><input type="hidden" name="_subject" value="Devis Roots HOLDEST"><button type="submit" class="btn-full" style="background:var(--green); color:white;">🌿 <span data-lang-fr="Demander mon devis Roots" data-lang-en="Request my Roots Quote" data-lang-it="Richiedi il mio Preventivo Roots">Demander mon devis Roots</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('rootsDevisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
+<div class="modal-overlay" id="rootsDevisModal"><div class="modal-box"><h3>🌿 <span data-lang-fr="Demande de devis - Budget Serré" data-lang-en="Quote Request - Low Budget" data-lang-it="Richiesta Preventivo - Budget Serré">Demande de devis - Budget Serré</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Remplissez ce formulaire pour un voyage roots authentique avec Randria." data-lang-en="Fill out this form for an authentic roots trip with Randria." data-lang-it="Compila questo modulo per un viaggio roots autentico con Randria.">Remplissez ce formulaire pour un voyage roots authentique avec Randria.</p><form id="rootsDevisForm"><input type="text" id="rootsNom" placeholder="Nom complet *" required><input type="email" id="rootsEmail" placeholder="Email *" required><input type="tel" id="rootsTel" placeholder="Téléphone"><select id="rootsDestination" required><option value="">Destination souhaitée *</option><option value="Tana">Tana & Hautes Terres</option><option value="Nosy Be">Nosy Be & îles</option><option value="Majunga">Majunga & Baobabs</option><option value="Diego">Diego & Mer Émeraude</option><option value="Tamatave">Tamatave & Pangalanes</option></select><select id="rootsDuree" required><option value="">Durée du séjour *</option><option value="4">4 jours</option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option></select><select id="rootsType" required><option value="">Type de logement souhaité *</option><option value="chez_habitant">🏠 Chez l'habitant</option><option value="auberge">🛏️ Auberge collective</option><option value="mixte">🔄 Mixte (selon disponibilité)</option></select><textarea id="rootsMessage" placeholder="Vos attentes, questions, ou demande spéciale..."></textarea><button type="submit" class="btn-full" style="background:var(--green); color:white;">🌿 <span data-lang-fr="Demander mon devis Roots" data-lang-en="Request my Roots Quote" data-lang-it="Richiedi il mio Preventivo Roots">Demander mon devis Roots</span></button><button type="button" class="btn-full" style="background:#ddd;" onclick="closeModal('rootsDevisModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></form></div></div>
 <div class="modal-overlay" id="registerModal"><div class="modal-box"><h3>📝 <span data-lang-fr="Créer un compte HOLDEST" data-lang-en="Create a HOLDEST Account" data-lang-it="Crea un Account HOLDEST">Créer un compte HOLDEST</span></h3><p style="font-size:0.85rem; color:var(--text-soft); margin-bottom:16px;" data-lang-fr="Inscrivez-vous pour obtenir <strong>5% de réduction</strong>." data-lang-en="Sign up to get <strong>5% discount</strong>." data-lang-it="Registrati per ottenere <strong>5% di sconto</strong>.">Inscrivez-vous pour obtenir <strong>5% de réduction</strong>.</p><input type="text" placeholder="Nom complet" id="regName"><input type="email" placeholder="Email" id="regEmail"><input type="tel" placeholder="Téléphone" id="regPhone"><select id="regOrigin"><option value="">🌍 <span data-lang-fr="D'où venez-vous ?" data-lang-en="Where are you from?" data-lang-it="Da dove vieni?">D'où venez-vous ?</span></option><option value="france">France (Métropole)</option><option value="europe">Europe (hors France)</option><option value="afrique">Afrique</option><option value="autre">Autre</option></select><select id="registerCity"><option value="">📍 <span data-lang-fr="Où voulez-vous aller ?" data-lang-en="Where do you want to go?" data-lang-it="Dove vuoi andare?">Où voulez-vous aller ?</span></option><option value="tana">Antananarivo (Tana)</option><option value="majunga">Majunga</option><option value="nosybe">Nosy Be</option><option value="diego">Diego Suarez</option><option value="tamatave">Tamatave (Toamasina)</option></select><select id="registerFormula"><option value="">⭐ <span data-lang-fr="Choisissez votre formule" data-lang-en="Choose your formula" data-lang-it="Scegli la tua formula">Choisissez votre formule</span></option><option value="confort">Confort</option><option value="premium">Premium</option><option value="luxe">Luxe</option></select><select id="registerDays"><option value="">📅 <span data-lang-fr="Durée du séjour" data-lang-en="Duration of stay" data-lang-it="Durata del soggiorno">Durée du séjour</span></option><option value="7">1 semaine</option><option value="10">10 jours</option><option value="14">2 semaines</option><option value="21">3 semaines</option><option value="30">1 mois</option></select><input type="password" placeholder="Mot de passe" id="regPassword"><button class="btn-full" style="background:var(--green); color:white;" onclick="registerSupabase()"><span data-lang-fr="S'inscrire" data-lang-en="Sign up" data-lang-it="Registrati">S'inscrire</span></button><button class="btn-full" style="background:#ddd;" onclick="closeModal('registerModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></div></div>
 <div class="modal-overlay" id="loginModal"><div class="modal-box"><h3>🔐 <span data-lang-fr="Se connecter à HOLDEST" data-lang-en="Log in to HOLDEST" data-lang-it="Accedi a HOLDEST">Se connecter à HOLDEST</span></h3><input type="email" placeholder="Email" id="loginEmail"><input type="password" placeholder="Mot de passe" id="loginPassword"><button class="btn-full" style="background:var(--green); color:white;" onclick="loginSupabase()"><span data-lang-fr="Se connecter" data-lang-en="Log in" data-lang-it="Accedi">Se connecter</span></button><button class="btn-full" style="background:#ddd;" onclick="closeModal('loginModal')"><span data-lang-fr="Annuler" data-lang-en="Cancel" data-lang-it="Annulla">Annuler</span></button></div></div>
 <div class="modal-overlay" id="profileModal"><div class="modal-box"><h3><i class="fas fa-user-circle"></i> <span data-lang-fr="Mon profil HOLDEST" data-lang-en="My HOLDEST Profile" data-lang-it="Il Mio Profilo HOLDEST">Mon profil HOLDEST</span></h3><div id="profileContent"></div><button class="btn-full" style="background:#ddd; margin-top:16px;" onclick="closeModal('profileModal')"><span data-lang-fr="Fermer" data-lang-en="Close" data-lang-it="Chiudi">Fermer</span></button></div></div>
@@ -1428,9 +1428,106 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     async function loadAdminAvis() { const { data } = await supabase.from('avis').select('*').order('created_at', { ascending: false }); document.getElementById('adminContent').innerHTML = data?.length ? data.map(a => `<div class="admin-item"><strong>⭐ ${a.note}/5</strong><br><small>${a.commentaire?.substring(0,80)||''}</small><span class="admin-badge">${a.valide ? '✅ Publié' : '⏳ En attente'}</span></div>`).join('') : '<div>Aucun avis</div>'; }
     function setupAdminTabs() { document.querySelectorAll('.admin-tab').forEach(tab => { tab.onclick = () => { document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); if (tab.dataset.adminTab === 'devis') loadAdminDevis(); else if (tab.dataset.adminTab === 'partenaires') loadAdminPartenaires(); else if (tab.dataset.adminTab === 'avis') loadAdminAvis(); }; }); }
 
-    // ==================== FORMULAIRES SUPABASE ====================
-    document.getElementById('devisForm')?.addEventListener('submit', async (e) => { e.preventDefault(); const payload = { nom: document.getElementById('devisNom').value, email: document.getElementById('devisEmail').value, telephone: document.getElementById('devisTel').value, destination: document.getElementById('devisDestination').value, duree: parseInt(document.getElementById('devisDuree').value), formule: document.getElementById('devisFormule').value, message: document.getElementById('devisMessage').value, status: 'en_attente', created_at: new Date() }; const { error } = await supabase.from('devis').insert([payload]); if (error) showToast("Erreur: "+error.message); else { showToast("✅ Devis envoyé !"); closeModal('devisModal'); e.target.reset(); } });
+    // ==================== FORMULAIRES AVEC SUPABASE ====================
     
+    // ============================================================
+    // ========== FORMULAIRE DEVIS AVEC CLONE ==========
+    // ============================================================
+    // Cette version supprime les anciens handlers et utilise le payload sans user_id
+    const devisFormEl = document.getElementById('devisForm');
+    if (devisFormEl) {
+        // Supprime tous les listeners éventuels en remplaçant le form par un clone
+        const devisFormClone = devisFormEl.cloneNode(true);
+        devisFormEl.parentNode.replaceChild(devisFormClone, devisFormEl);
+        window.devisFormEl = devisFormClone;
+
+        devisFormClone.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nom = document.getElementById('devisNom')?.value?.trim();
+            const email = document.getElementById('devisEmail')?.value?.trim();
+            const telephone = document.getElementById('devisTel')?.value?.trim() || null;
+            const destinationRaw = document.getElementById('devisDestination')?.value;
+            const duree = parseInt(document.getElementById('devisDuree')?.value, 10);
+            const formule = document.getElementById('devisFormule')?.value;
+            const message = document.getElementById('devisMessage')?.value?.trim() || null;
+
+            if (!nom || !email || !destinationRaw || !duree || !formule) {
+                showToast("❌ Remplis tous les champs obligatoires.");
+                return;
+            }
+
+            // Région déduite
+            let region = "tana";
+            if (destinationRaw === "Tana & Hautes Terres") region = "tana";
+            else if (destinationRaw === "Nosy Be & îles") region = "nosybe";
+            else if (destinationRaw === "Majunga & Baobabs") region = "majunga";
+            else if (destinationRaw === "Diego & Mer Émeraude") region = "diego";
+            else if (destinationRaw === "Tamatave & Pangalanes") region = "tamatave";
+
+            // Calculs
+            const montant_service = calculateServicePrice(destinationRaw, formule, duree, currentPeopleCount);
+            const frais_dossier = 30;
+            const montant_total = montant_service + frais_dossier;
+            const montant_moitie = Math.round(montant_total / 2);
+
+            // ✅ Payload SANS user_id (colonne inexistante)
+            const payload = {
+                nom,
+                email,
+                telephone,
+                destination: destinationRaw,
+                duree,
+                formule,
+                message,
+                region,
+                montant_service,
+                frais_dossier,
+                montant_total,
+                montant_moitie,
+                status: "recu",        // ✅ IMPORTANT pour RLS
+                admin_accepted: false,
+                created_at: new Date().toISOString()
+            };
+
+            console.log('📤 Payload envoyé :', payload);
+
+            const { error } = await supabase.from('devis').insert([payload]);
+
+            if (error) {
+                showToast("❌ Erreur (devis): " + error.message);
+                console.error('❌ Erreur détaillée :', error);
+                return;
+            }
+
+            showToast(`✅ Devis envoyé ! Total: ${montant_total}€ - À payer si accepté: ${montant_moitie}€`);
+            closeModal('devisModal');
+            e.target.reset();
+        });
+    }
+
+    function calculateServicePrice(destination, formule, duree, personnes) {
+        const baseRates = {
+            tana: { confort: 85, premium: 120, luxe: 180 },
+            majunga: { confort: 80, premium: 115, luxe: 175 },
+            nosybe: { confort: 95, premium: 140, luxe: 210 },
+            diego: { confort: 90, premium: 135, luxe: 200 },
+            tamatave: { confort: 75, premium: 110, luxe: 165 }
+        };
+        let region = destination;
+        if (destination === "Tana & Hautes Terres") region = "tana";
+        else if (destination === "Nosy Be & îles") region = "nosybe";
+        else if (destination === "Majunga & Baobabs") region = "majunga";
+        else if (destination === "Diego & Mer Émeraude") region = "diego";
+        else if (destination === "Tamatave & Pangalanes") region = "tamatave";
+        
+        const pricePerDay = baseRates[region]?.[formule] || baseRates.tana.confort;
+        let total = pricePerDay * duree;
+        if (personnes >= 4) total = Math.round(total * 0.9);
+        if (personnes >= 6) total = Math.round(total * 0.8);
+        return total;
+    }
+
     // Formulaire partenaire amélioré
     const partnershipForm = document.getElementById('partnershipForm');
     const partnerFullname = document.getElementById('partnerFullname');
@@ -1608,7 +1705,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         submitPartnerRequest();
     });
     
-    document.getElementById('rootsDevisForm')?.addEventListener('submit', async (e) => { e.preventDefault(); const payload = { nom: document.getElementById('rootsNom').value, email: document.getElementById('rootsEmail').value, telephone: document.getElementById('rootsTel').value, destination: document.getElementById('rootsDestination').value, duree: parseInt(document.getElementById('rootsDuree').value), message: document.getElementById('rootsMessage').value, formule: 'roots', status: 'en_attente', created_at: new Date() }; const { error } = await supabase.from('devis').insert([payload]); if (error) showToast("Erreur: "+error.message); else { showToast("✅ Demande Roots envoyée !"); closeModal('rootsDevisModal'); e.target.reset(); } });
+    document.getElementById('rootsDevisForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+            nom: document.getElementById('rootsNom').value,
+            email: document.getElementById('rootsEmail').value,
+            telephone: document.getElementById('rootsTel').value,
+            destination: document.getElementById('rootsDestination').value,
+            duree: parseInt(document.getElementById('rootsDuree').value),
+            message: document.getElementById('rootsMessage').value,
+            formule: 'roots',
+            status: 'recu',
+            admin_accepted: false,
+            created_at: new Date().toISOString()
+        };
+        const { error } = await supabase.from('devis').insert([payload]);
+        if (error) showToast("Erreur: "+error.message);
+        else { showToast("✅ Demande Roots envoyée !"); closeModal('rootsDevisModal'); e.target.reset(); }
+    });
 
     // ==================== FONCTIONS MÉTIER (budget, etc.) ====================
     function calculateBudget(days, formula, location) {
